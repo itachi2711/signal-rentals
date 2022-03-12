@@ -1,0 +1,98 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup] = "form" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field class="full-width" color="primary" appearance="outline">
+                                <mat-label>Lease Number Prefix</mat-label>
+                                <input matInput placeholder="Lease Number Prefix" formControlName="lease_number_prefix">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field class="full-width" color="primary" appearance="outline">
+                                <mat-label>Invoice Number Prefix</mat-label>
+                                <input matInput placeholder="Invoice Number Prefix" formControlName="invoice_number_prefix">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field class="full-width" color="primary" appearance="outline">
+                                <mat-label>Invoice Footer</mat-label>
+                                <input matInput placeholder="Invoice Footer" formControlName="invoice_footer">
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <mat-form-field class="full-width" color="primary" appearance="outline">
+                                <mat-label>Invoice Terms</mat-label>
+                                <input matInput placeholder="Invoice Terms" formControlName="invoice_terms">
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <mat-form-field class="full-width" color="primary" appearance="outline">
+                                <mat-label>Generate Invoice On (Day of Month)</mat-label>
+                                <mat-select formControlName="generate_invoice_on">
+                                    <mat-option *ngFor="let day of dueON" [value]="day">
+                                        {{day}}
+                                    </mat-option>
+                                </mat-select>
+                                <mat-hint>Day of each month when invoices are generated and sent to tenants.</mat-hint>
+                                <mat-error align="start" *ngIf="formErrors?.generate_invoice_on" class="form__error">{{ formErrors.generate_invoice_on }}</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mat-form-field mt-3 mb-3">
+                        <mat-checkbox formControlName="show_payment_method_on_invoice">
+                            Show Payment Methods On Invoice
+                        </mat-checkbox>
+                    </div>
+
+                    <div class="col-12 mat-form-field mt-3 mb-3">
+                        <mat-checkbox formControlName="next_period_billing">
+                             Next Period Billing
+                        </mat-checkbox>
+                        <div>
+                            <mat-hint><small>When billing, invoice period is set as next month.</small></mat-hint>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mat-form-field">
+                        <mat-checkbox formControlName="skip_starting_period">
+                            Skip Starting Period
+                        </mat-checkbox>
+                        <div>
+                            <mat-hint><small>For new lease, do not bill the first period.</small></mat-hint>
+                        </div>
+                    </div>
+
+                    <div class="divider divider-md"></div>
+                    <div class="d-flex justify-content-center spinner-container" *ngIf="loader">
+                        <mat-progress-bar
+                                color="green"
+                                mode="query"
+                                value=50
+                                bufferValue=75>
+                        </mat-progress-bar>
+                    </div>
+
+                    <div>
+                        <button mat-raised-button type="submit" class="btn pull-right" color="accent"
+                                (click)="update()" [disabled]="!form.valid || loader">Update Settings</button>
+                    </div>
+
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

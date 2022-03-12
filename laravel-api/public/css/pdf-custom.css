@@ -1,0 +1,46 @@
+/*thead:before, thead:after { display: none; }
+tbody:before, tbody:after { display: none; }*/
+@page {
+    margin: 0 0 40px 0;
+}
+body {
+    margin: 0;
+}
+* {
+    font-family: Verdana, Arial, sans-serif;
+}
+a {
+    color: #fff;
+    text-decoration: none;
+}
+table {
+    font-size: x-small;
+}
+tfoot tr td {
+    font-weight: bold;
+    font-size: x-small;
+}
+.content table {
+    margin: 15px;
+}
+.content h3 {
+    margin-left: 15px;
+}
+.information {
+    background-color: #fff;
+    /* color: #000000;*/
+}
+.information .logo {
+    margin: 3px;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+.information table {
+    padding: 10px;
+}
+footer {
+    position: fixed; bottom: -60px; left: 0px; right: 0px; background-color: lightblue; height: 50px;
+}

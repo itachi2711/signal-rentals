@@ -1,0 +1,118 @@
+<div class="row">
+xxx
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                <div class="col-sm-6">
+                    <mat-form-field class="full-width" color="primary" appearance="outline">
+                    <mat-label>First Namel</mat-label>
+                        <input matInput placeholder="First Name" disabled value="{{(landlord$|async)?.first_name}}">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-6">
+                    <mat-form-field class="full-width" color="primary" appearance="outline">
+                        <mat-label>Middle Name</mat-label>
+                        <input matInput placeholder="Middle Name" disabled value="{{(landlord$|async)?.middle_name}}">
+                    </mat-form-field>
+                </div>
+            </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput placeholder="Last Name" disabled value="{{(landlord$|async)?.last_name}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                            <mat-label>Date Became Member</mat-label>
+                            <input matInput placeholder="Date Became Member" disabled value="{{(landlord$|async)?.date_became_member_display}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                            <mat-label>Phone</mat-label>
+                            <input matInput placeholder="Phone" disabled value="{{(landlord$|async)?.phone}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="Email" disabled value="{{(landlord$|async)?.email}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                            <mat-label>Date of Birth</mat-label>
+                            <input matInput placeholder="Date of Birth" disabled value="{{(landlord$|async)?.date_of_birth_display}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                            <mat-label>Nationality</mat-label>
+                            <input matInput placeholder="Nationality" disabled value="{{(landlord$|async)?.nationality}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                            <mat-label>County</mat-label>
+                            <input matInput placeholder="County" disabled value="{{(landlord$|async)?.county}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                            <mat-label>City</mat-label>
+                            <input matInput placeholder="City" disabled value="{{(landlord$|async)?.city}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                            <mat-label>National ID / Passport Number</mat-label>
+                            <input matInput placeholder="National ID / Passport Number" disabled value="{{(landlord$|async)?.id_number}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                            <mat-label>Residential Address</mat-label>
+                            <input matInput placeholder="Residential Address" disabled value="{{(landlord$|async)?.residential_address}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                            <mat-label>Postal Address</mat-label>
+                            <input matInput placeholder="Postal Address" disabled value="{{(landlord$|async)?.postal_address}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="col-sm-6" *ngIf="memberShipForm">
+                            <div class="d-flex spinner-container" *ngIf="loader">
+                                <mat-spinner [diameter]="40"></mat-spinner>
+                            </div>
+
+                            <button mat-raised-button *ngIf="!loader" (click)="downloadForm()">
+                                <i class="material-icons">
+                                    cloud_download
+                                </i> Membership Form
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

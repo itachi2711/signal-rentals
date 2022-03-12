@@ -1,0 +1,31 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-info">
+                <h4 class="card-title ">Reports</h4>
+            </div>
+            <div class="card-body">
+                <nav mat-tab-nav-bar>
+                    <a mat-tab-link routerLinkActive #general="routerLinkActive" [active]="general.isActive" [routerLinkActiveOptions]="{exact: true}"
+                       routerLink="/reports">
+                        <span class="nav-text"> Property Report </span>
+                    </a>
+
+                    <a mat-tab-link routerLinkActive #ledger="routerLinkActive" [active]="ledger.isActive" [routerLink]="['ledger']"
+                       routerLink="/ledger">
+                        <span class="nav-text"> General Ledger </span>
+                    </a>
+
+                    <a mat-tab-link routerLinkActive #journal="routerLinkActive" [active]="journal.isActive" [routerLink]="['journal']">
+                        <span class="nav-text">  Journal </span>
+                    </a>
+                </nav>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+            </div>
+        </div>
+    </div>
+</div>

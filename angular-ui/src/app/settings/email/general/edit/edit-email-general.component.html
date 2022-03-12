@@ -1,0 +1,45 @@
+<h5 mat-dialog-title>Edit Setting</h5>
+
+<mat-dialog-content class="mat-dialog-data" [formGroup]="form"  (ngSubmit)="updateType()">
+
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Display Name</mat-label>
+                <input matInput formControlName="display_name" placeholder="Display Name">
+                <mat-error align="start" *ngIf="formErrors?.display_name" class="form__error">{{ formErrors.display_name }}</mat-error>
+            </mat-form-field>
+        </div>
+
+    </div>
+
+    <h5>Send notification via : </h5>
+
+    <mat-card>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-6">
+                    <mat-slide-toggle formControlName="send_email" color="primary">Email</mat-slide-toggle>
+                </div>
+                <div class="col-6">
+                    <mat-slide-toggle formControlName="send_sms" color="primary">SMS</mat-slide-toggle>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+</mat-dialog-content>
+
+<div class="d-flex justify-content-center spinner-container" *ngIf="loader">
+    <mat-progress-bar
+            color="green"
+            mode="query"
+            value=50
+            bufferValue=75>
+    </mat-progress-bar>
+</div>
+
+<mat-dialog-actions align="center">
+    <button [disabled]="loader" mat-button class="mr-2" color="accent" [mat-dialog-close]="true" (click)="close()">Cancel</button>
+    <button mat-raised-button  color="primary" (click)="updateType()" [disabled]="!form.valid || loader">Save</button>
+</mat-dialog-actions>

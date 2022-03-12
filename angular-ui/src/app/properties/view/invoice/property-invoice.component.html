@@ -1,0 +1,82 @@
+
+<div class="table-responsive">
+
+    <div class="row mr-3 ml-3 mt-1">
+        <div class="col-12">
+            <mat-form-field class="search-form-field">
+                <input matInput #search placeholder="{{ 'robi.filter' | translate }}" autocomplete="off" [disabled]="meta?.total===0">
+                <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="search.value" (click)="clearSearch()">
+                    <mat-icon>close</mat-icon></button>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <mat-table #table [dataSource]="invoiceDataSource" matSort matSortActive="invoice_number"
+               matSortDirection="desc" matSortDisableClear>
+
+        <ng-container matColumnDef="invoice_number">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Invoice Number </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-flat-button routerLink="/invoices/{{row?.id}}" (click)="onInvoiceSelected(row)">
+                    <span class="link">{{row.invoice_number}}</span>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="invoice_date">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Invoice Date </mat-header-cell>
+            <mat-cell *matCellDef="let row">{{row.invoice_date}}</mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="invoice_amount">
+            <mat-header-cell *matHeaderCellDef> Invoice Amount </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.summary?.invoice_amount}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="amount_paid">
+            <mat-header-cell *matHeaderCellDef> Paid Amount </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.summary?.amount_paid}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="amount_due">
+            <mat-header-cell *matHeaderCellDef> Invoice Balance </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.summary?.amount_due}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="due_date">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Due Date </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.due_date}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <div class="{{row.summary?.status?.status_color}}">
+                    <mat-icon>{{row.summary?.status?.status_icon}}</mat-icon>
+                    {{row.summary?.status?.status_text}}
+                </div>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="invoiceColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: invoiceColumns;"> </mat-row>
+
+    </mat-table>
+    <span *ngIf="meta?.total===0">No Invoice Data.</span>
+
+    <div class="d-flex justify-content-center spinner-container" *ngIf="(invoiceDataSource?.loading$ | async) || loader">
+        <mat-progress-bar
+                color="green"
+                mode="query"
+                value=50
+                bufferValue=75>
+        </mat-progress-bar>
+    </div>
+
+    <mat-paginator #pagination
+                   [length]="meta?.total"
+                   [pageIndex]="pageIndex"
+                   [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+    </mat-paginator>
+
+</div>

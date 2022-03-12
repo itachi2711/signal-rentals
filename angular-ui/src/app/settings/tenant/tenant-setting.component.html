@@ -1,0 +1,26 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-info">
+                <p class="card-category">Tenant Settings</p>
+            </div>
+
+            <div class="card-body">
+
+                <nav mat-tab-nav-bar>
+
+                    <a mat-tab-link routerLinkActive #tenant="routerLinkActive" [active]="tenant.isActive" [routerLinkActiveOptions]="{exact: true}"
+                       [routerLink]="['/settings/tenant']">
+                        <span class="nav-text"> General</span></a>
+
+                    <a mat-tab-link routerLinkActive #tenant_type="routerLinkActive" [active]="tenant_type.isActive"
+                       [routerLink]="['tenant_type']">
+                        <span class="nav-text"> Tenant Types</span></a>
+                </nav>
+
+                <router-outlet></router-outlet>
+
+            </div>
+        </div>
+    </div>
+</div>

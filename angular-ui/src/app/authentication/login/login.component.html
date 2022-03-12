@@ -1,0 +1,46 @@
+<div [class]="'login-container '+(theme$ | async)">
+     <div class="card">
+            <div class="card-header card-header-info">
+               <!-- <h4 class="card-title">Signal Rentals</h4>-->
+                <p class="card-category">Log In</p>
+            </div>
+            <div class="card-body">
+
+                <div class="spinner" *ngIf="loader">
+                    <mat-spinner [diameter]="48"></mat-spinner>
+                </div>
+
+                <div *ngIf="loginError" class="alert alert-danger">
+                    {{loginError}}
+                </div>
+
+                <form [formGroup]="loginForm">
+                    <mat-form-field>
+                        <input matInput type="email" placeholder="Email" formControlName="email">
+                        <mat-icon matSuffix class="material-icons">mail_outline</mat-icon>
+                        <mat-error align="start" class="form__error"></mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field>
+                        <input matInput type="password" placeholder="Password" formControlName="password">
+                        <mat-icon matSuffix class="material-icons">lock_outline</mat-icon>
+                    </mat-form-field>
+
+                    <div class="divider divider-md"></div>
+
+                    <div class="additional-info">
+                        <span class="divider-h"></span>
+                        <a [routerLink]="['/forgot-password']">Forgot your password?</a>
+
+                        <button mat-raised-button type="submit" (click)="login()" class="pull-right btn" color="primary" [disabled]="!loginForm.valid || loader">
+                            Login
+                        </button>
+
+                    </div>
+
+                    <div class="clearfix"></div>
+                </form>
+                
+            </div>
+        </div>
+</div>

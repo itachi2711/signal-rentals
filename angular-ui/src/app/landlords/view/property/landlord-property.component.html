@@ -1,0 +1,50 @@
+<div class="table-responsive">
+
+    <mat-table #table [dataSource]="propertyDataSource" matSort matSortActive="property_code" matSortDirection="desc" matSortDisableClear>
+
+        <ng-container matColumnDef="property_code">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Code </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-flat-button routerLink="/properties/{{row?.id}}" (click)="onPropertySelected(row)">
+                    <span class="link">{{row.property_code}}</span>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="property_name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.property_name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="location">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Location </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.location}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="total_units">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Units </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.total_units}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="propertyColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: propertyColumns;"> </mat-row>
+
+    </mat-table>
+    <span *ngIf="meta?.total===0">No Property Data.</span>
+
+    <div class="d-flex justify-content-center spinner-container" *ngIf="(propertyDataSource?.loading$ | async) || loader">
+        <mat-progress-bar
+                color="green"
+                mode="query"
+                value=50
+                bufferValue=75>
+        </mat-progress-bar>
+    </div>
+
+    <mat-paginator #pagination
+                   [length]="meta?.total"
+                   [pageIndex]="pageIndex"
+                   [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+    </mat-paginator>
+
+</div>

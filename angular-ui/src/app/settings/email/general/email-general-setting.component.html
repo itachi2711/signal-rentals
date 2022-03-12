@@ -1,0 +1,87 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row search-form-section">
+                    <div class="col-10">
+                        <mat-form-field class="search-form-field">
+                            <input matInput #search placeholder="Search" autocomplete="off" [disabled]="meta?.total===0">
+                            <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="search.value" (click)="clearSearch()">
+                                <mat-icon>close</mat-icon></button>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+
+                    <mat-table #table [dataSource]="dataSource" matSort matSortActive="display_name" matSortDirection="asc" matSortDisableClear>
+
+                        <ng-container matColumnDef="display_name">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Event </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.display_name}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="send_email">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Email </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <span *ngIf="row.send_email == true">
+                                   <i class="material-icons">done</i>
+                                </span>
+                                <span *ngIf="row.send_email == false">
+                                   <i class="material-icons">clear</i>
+                                </span>
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="send_sms">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Sms </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <span *ngIf="row.send_sms == true">
+                                   <i class="material-icons">done</i>
+                                </span>
+                                <span *ngIf="row.send_sms == false">
+                                   <i class="material-icons">clear</i>
+                                </span>
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="actions">
+                            <mat-header-cell *matHeaderCellDef> Actions  </mat-header-cell>
+                            <mat-cell *matCellDef="let row" class="button-row">
+                                <button mat-raised-button type="button" (click)="editDialog(row)" matTooltip="Edit" [matTooltipPosition]="'above'"
+                                        class="btn btn-primary btn-link btn-sm btn-just-icon">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                            </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"> </mat-row>
+
+                    </mat-table>
+                    <span *ngIf="meta?.total===0">No Data</span>
+
+                    <div class="d-flex justify-content-center spinner-container" *ngIf="(dataSource?.loading$ | async) || loader">
+                        <mat-progress-bar
+                                color="green"
+                                mode="query"
+                                value=50
+                                bufferValue=75>
+                        </mat-progress-bar>
+                    </div>
+
+                    <mat-paginator #pagination
+                                   [length]="meta?.total"
+                                   [pageIndex]="pageIndex"
+                                   [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+                    </mat-paginator>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>

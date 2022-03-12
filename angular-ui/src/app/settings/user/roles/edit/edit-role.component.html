@@ -1,0 +1,53 @@
+<h5 mat-dialog-title>Edit Role</h5>
+
+<mat-dialog-content class="mat-dialog-data" [formGroup]="editForm"  (ngSubmit)="update()">
+
+    <div class="row">
+        <div class="col-lg-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" placeholder="Name">
+                <mat-error align="start" *ngIf="formErrors?.name" class="form__error">{{ formErrors.name }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+        <mat-form-field class="full-width" color="primary" appearance="outline">
+            <mat-label>Display Name</mat-label>
+            <input matInput formControlName="display_name" placeholder="Display Name">
+            <mat-error align="start" *ngIf="formErrors?.display_name" class="form__error">{{ formErrors.display_name }}</mat-error>
+        </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row col-lg-12" formArrayName="permissions">
+        <mat-error align="start" *ngIf="formErrors?.permissions" class="form__error">{{ formErrors.permissions }}</mat-error>
+
+            <div *ngFor="let item of items.controls; index as i" class="col-6">
+                <mat-checkbox
+                        [formControlName]="i">
+                    {{options[i].label}}
+                </mat-checkbox>
+            </div>
+    </div>
+
+</mat-dialog-content>
+
+<div class="d-flex justify-content-center spinner-container" *ngIf="loader">
+    <mat-progress-bar
+            color="green"
+            mode="query"
+            value=50
+            bufferValue=75>
+    </mat-progress-bar>
+</div>
+
+<mat-dialog-actions align="center">
+    <button [disabled]="loader" mat-button class="mr-2" color="warn"
+            (click)="deleting()"> <mat-icon>delete</mat-icon>Delete
+    </button>
+    <button [disabled]="loader" mat-button class="mr-2" color="accent" [mat-dialog-close]="true" (click)="close()">Cancel</button>
+    <button mat-raised-button  color="primary" (click)="update()" [disabled]="!editForm.valid || loader">Save</button>
+</mat-dialog-actions>

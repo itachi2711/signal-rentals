@@ -1,0 +1,43 @@
+<div class="main-content">
+    <ng-template #no_data>
+        <div class="not-found">
+            <mat-icon>error</mat-icon> Not Found
+        </div>
+    </ng-template>
+    <div class="container-fluid" *ngIf="noticeData$ | async as notice; else no_data">
+        <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <div class="row">
+                                <div class="col-8">
+                                    <h4 class="card-title">Vacate Notice Details</h4>
+                                    <p class="card-category">{{notice?.lease?.lease_number}}</p>
+                                </div>
+                                <div class="col-4 text-right" *robiPermission="['edit-notice', 'delete-notice']">
+                                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item matTooltip="Edit Notice." [matTooltipPosition]="'above'"
+                                                (click)="addDialog(false, notice)">
+                                            <mat-icon color="accent">edit</mat-icon>
+                                            <span>Edit Notice</span>
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <nav mat-tab-nav-bar>
+                                <a mat-tab-link routerLinkActive #general="routerLinkActive" [active]="general.isActive"
+                                   [routerLinkActiveOptions]="{exact: true}" routerLink="/notices/{{noticeID}}">
+                                    <span class="nav-text">  Info </span></a>
+                            </nav>
+                            <router-outlet></router-outlet>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

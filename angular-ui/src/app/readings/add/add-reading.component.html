@@ -1,0 +1,206 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">New Utility Readings</h4>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-body">
+
+                        <form [formGroup]="utilitySummaryFormGroup">
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <mat-form-field color="primary" appearance="outline">
+                                        <mat-label>Property *</mat-label>
+                                        <mat-select formControlName="property_id" #propertySelect (selectionChange)="onPropertyItemChange(propertySelect.value)">
+                                            <mat-option>
+                                                <ngx-mat-select-search [formControl]="propertyServerSideFilteringCtrl" [searching]="searching"
+                                                                       placeholderLabel="Find Property..."
+                                                                       noEntriesFoundLabel="No matching property found ...">
+                                                </ngx-mat-select-search>
+                                            </mat-option>
+                                            <mat-option *ngFor="let property of filteredServerSideProperties | async" [value]="property.id">
+                                                {{property.property_name}} {{property.location}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error align="start" *ngIf="formErrors?.property_id" class="form__error">{{ formErrors.property_id }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <mat-form-field class="full-width" color="primary" appearance="outline">
+                                        <mat-label>Utility *</mat-label>
+                                        <mat-select placeholder="Utility *" formControlName="utility_id" #utilitySelect (selectionChange)="onUtilityItemChange(utilitySelect.value)">
+                                            <mat-option *ngFor="let utility of utilities$ | async" [value]="utility.id">
+                                                {{utility.utility_display_name}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error align="start" *ngIf="formErrors?.utility_id" class="form__error">{{ formErrors.utility_id }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+                        </form>
+
+                        <ng-container *ngIf="utilitySummaryFormGroup.valid">
+
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 mt-2 mb-2">
+                                    <mat-radio-group aria-label="Select an option"
+                                                     [(ngModel)]="entryChoice">
+                                        <mat-radio-button class="example-radio-button mr-4" *ngFor="let season of dataEntryOptions" [value]="season.id">
+                                            {{season.description}}
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+
+                        <ng-container *ngIf="entryChoice === 'manual'">
+                        <form [formGroup]="utilityBillsFormGroup">
+                            <div class="mt-4" formArrayName="unitReadings"
+                                 *ngFor="let unitBill of utilityBillFieldsAll.controls; let i = index;">
+                                <div class="row col-sm-12" [formGroupName]="i">
+                                    <div class="col-11 col-sm-5 col-md-5 col-lg-3 col-xl-3">
+                                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                                            <mat-label>{{i+1}}. Unit *</mat-label>
+                                            <mat-select placeholder="Unit" formControlName="unit_id"  #unitSelect (selectionChange)="onUnitItemChange(unitSelect.value, i)">
+                                                <mat-option *ngFor="let unit of units$ | async" [value]="unit.id">
+                                                    {{unit.unit_name}}
+                                                </mat-option>
+                                            </mat-select>
+                                            <mat-error align="start" *ngIf="formErrors?.unit_id" class="form__error">{{ formErrors.unit_id }}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-11 col-sm-5 col-md-5 col-lg-3 col-xl-3">
+                                        <mat-form-field  class="full-width" color="primary" appearance="outline">
+                                            <mat-label>Reading Date *</mat-label>
+                                            <input matInput (click)="reading_date.open()" [matDatepicker]="reading_date" formControlName="reading_date" placeholder="Reading Date">
+                                            <mat-datepicker-toggle matSuffix [for]="reading_date"></mat-datepicker-toggle>
+                                            <mat-datepicker touchUi #reading_date></mat-datepicker>
+                                            <mat-hint class="text-success" align="start">
+
+                                                <span> Previous:</span>
+                                                <span class="ml-1" *ngIf="pastReadings[i] | async as reading">
+                                                    {{reading.reading_date}}
+                                                </span>
+                                            </mat-hint>
+                                            <mat-error align="start" *ngIf="formErrors?.reading_date" class="form__error">{{ formErrors.reading_date }}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-11 col-sm-5 col-md-5 col-lg-3 col-xl-3">
+                                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                                            <mat-label>Current Reading</mat-label>
+                                            <input matInput type="number" min="0" formControlName="current_reading"
+                                                   placeholder="Current Reading" (change)="onCurrentReadingChange($event, i)">
+                                            <mat-hint class="text-success" align="start">
+                                                <span> Previous:</span>
+
+                                                <ng-container *ngIf="pastReadings[i] | async as reading">
+
+                                                    <span class="ml-1" >
+                                                        {{reading.current_reading}}
+                                                    </span>
+                                                    <span class="text-info ml-4"> Consumption:</span>
+                                                    <span class="ml-1" *ngIf="consumptionBank[i] | async as todayReading">
+                                                        {{todayReading - reading.current_reading}}
+                                                    </span>
+
+                                                </ng-container>
+                                            </mat-hint>
+                                            <mat-error align="start" *ngIf="formErrors?.current_reading" class="form__error">{{ formErrors.current_reading }}</mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+
+                                    <div class="col-2 col-sm-2 col-md-3 col-lg-3 col-xl-3 mt-md-3 mt-lg-3 mt-xl-3">
+                                        <button class="btn btn-link btn-sm btn-just-icon" (click)="utilityBillFieldCopy(i)"
+                                                mat-icon-button aria-label="Copy to New Unit"
+                                                matTooltip="Copy to New Unit" [matTooltipPosition]="'above'">
+                                            <mat-icon>file_copy</mat-icon>
+                                        </button>
+                                        <button class="btn btn-link btn-sm btn-just-icon" (click)="utilityBillFieldRemove(i)"
+                                                mat-icon-button color="accent" aria-label="Remove Unit"
+                                                matTooltip="Remove Unit" [matTooltipPosition]="'above'">
+                                            <mat-icon color="warn">close</mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-6">
+                                    <button (click)="utilityBillFieldAdd()"
+                                            class="mat-stroked-button mat-accent mb-3" mat-button type="button"
+                                            matTooltip="Add Unit" [matTooltipPosition]="'above'">
+                                        <mat-icon color="material-icons">add</mat-icon>
+                                        <span>Another Unit</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-center spinner-container"
+                                 *ngIf="loader">
+                                <mat-progress-bar
+                                        color="green"
+                                        mode="query"
+                                        value=50
+                                        bufferValue=75>
+                                </mat-progress-bar>
+                            </div>
+
+                            <div>
+                                <button mat-raised-button type="submit" (click)="create()" class="pull-right btn" color="primary"
+                                        [disabled]="!utilityBillsFormGroup.valid || !utilitySummaryFormGroup.valid">
+                                    Save
+                                </button>
+                            </div>
+
+                        </form>
+                        </ng-container>
+
+                        <ng-container *ngIf="entryChoice === 'import'">
+                        <form [formGroup]="autoDataEntryFormGroup">
+                            <div class="row mt-5">
+
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                    <input type="file" #profileFileInput accept="image/*"
+                                           (change)="onReadingTemplateSelect($event.target.files)">
+                                </div>
+
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                                    <button class="mat-raised-button mat-primary" mat-button type="button"
+                                            (click)="profileFileInput.click()">
+                                        <span>Upload Readings</span>
+                                    </button>
+                                </div>
+
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+                                </div>
+
+                            </div>
+                            <div class="row mt-5">
+                                <div class="col-12">
+                                    <button class="mat-accent" mat-button type="button" (click)="getTemplateFileCSV()">
+                                        <i class="material-icons mr-1">cloud_download</i>
+                                        <span>Template File (.csv)</span>
+                                    </button>
+                                    <button class="mat-accent" mat-button type="button" (click)="getTemplateFileExcel()">
+                                        <i class="material-icons mr-1">cloud_download</i>
+                                        <span>Template File (Excel)</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        </ng-container>
+
+                        </ng-container>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

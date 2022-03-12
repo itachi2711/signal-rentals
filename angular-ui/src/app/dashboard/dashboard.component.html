@@ -1,0 +1,191 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                  <div class="card-header card-header-accent">
+                      <p class="card-title">{{adminSummary?.pending_amount}}</p>
+                  </div>
+                  <div class="card-footer">
+                      <div class="stats">Pending Amount</div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                  <div class="card-header card-header-info">
+                      <p class="card-title">{{adminSummary?.total_properties}} / {{adminSummary?.total_units}}</p>
+                  </div>
+                  <div class="card-footer">
+                      <div class="stats">Properties / Units</div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                  <div class="card-header card-header-accent">
+                      <p class="card-title">{{adminSummary?.total_leases}}</p>
+                  </div>
+                  <div class="card-footer">
+                      <div class="stats"> Leases</div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="card card-stats">
+                  <div class="card-header card-header-info">
+                      <p class="card-title">{{adminSummary?.total_tenants}}</p>
+                  </div>
+                  <div class="card-footer">
+                      <div class="stats">Tenants</div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-lg-6 col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-accent">
+                      Period Billing
+                  </div>
+                  <div class="card-body">
+                      <div class="row">
+                          <div class="col-lg-12 col-md-12 col-sm-12">
+                              <div style="display: block">
+                                  <canvas baseChart
+                                          [options]="options"
+                                          [data]="pieChartData$ | async"
+                                          [labels]="pieChartLabels"
+                                          [chartType]="pieChartType">
+
+                                  </canvas>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-lg-4 col-md-6 col-sm-6">
+                              <div class="card card-stats">
+                                  <div class="card-footer">
+                                      <div class="stats">Billed: {{billed$ | async}}</div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-sm-6">
+                              <div class="card card-stats">
+                                  <div class="card-footer">
+                                      <div class="stats">Paid: {{paid$ | async}}</div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-4 col-md-6 col-sm-6">
+                              <div class="card card-stats">
+                                  <div class="card-footer">
+                                      <div class="stats">Pending: {{pending$ | async}}</div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <form [formGroup]="billingForm">
+                      <div class="row col-lg-12">
+                          <div class="col-lg-12">
+                              <mat-form-field color="primary" appearance="outline">
+                                  <mat-label>Period</mat-label>
+                                  <mat-select formControlName="period_id" #periodSelect
+                                              (selectionChange)="onPeriodChange(periodSelect.value)">
+                                      <mat-option *ngFor="let period of periods$ | async" [value]="period.period_id">
+                                          {{period.period_name}}
+                                      </mat-option>
+                                  </mat-select>
+                              </mat-form-field>
+                          </div>
+                      </div>
+                  </form>
+              </div>
+          </div>
+
+          <div class="col-lg-6 col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-accent">
+                      Period Payments
+                  </div>
+              <div class="card-body">
+                  <div style="display: block">
+                      <canvas baseChart
+                              [datasets]="barChartData"
+                              [labels]="barChartLabels"
+                              [options]="barChartOptions"
+                              [legend]="barChartLegend"
+                              [chartType]="barChartType">
+                      </canvas>
+                  </div>
+              </div>
+              </div>
+          </div>
+      </div>
+
+      <!--{{scopes$|async|json}}-->
+      <div class="row">
+          <div class="col-lg-12 col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-accent">
+                      <h4 class="card-title">Vacant Units</h4>
+                      <p class="card-category">Total: {{meta?.total}}</p>
+                  </div>
+                  <div class="card-body table-responsive">
+
+                      <mat-table class="table-hover" #table [dataSource]="vacantUnitsDataSource" matSort matSortActive="unit_name"
+                                 matSortDirection="desc"
+                                 matSortDisableClear>
+
+                          <ng-container matColumnDef="unit_mode">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> Mode </mat-header-cell>
+                              <mat-cell *matCellDef="let row"> {{row.unit_mode | titlecase}} </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="unit_type_id">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> Type </mat-header-cell>
+                              <mat-cell *matCellDef="let row"> {{row.unit_type?.unit_type_display_name}} </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="unit_name">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> Unit </mat-header-cell>
+                              <mat-cell *matCellDef="let row"> {{row.unit_name | titlecase }} </mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="property_id">
+                              <mat-header-cell *matHeaderCellDef mat-sort-header> Property </mat-header-cell>
+                              <mat-cell *matCellDef="let row"> {{row.property?.property_name}} - ({{row.property?.property_code}})</mat-cell>
+                          </ng-container>
+
+                          <ng-container matColumnDef="location">
+                              <mat-header-cell *matHeaderCellDef> Location </mat-header-cell>
+                              <mat-cell *matCellDef="let row"> {{row.property?.location}} </mat-cell>
+                          </ng-container>
+
+                          <mat-header-row *matHeaderRowDef="vacantUnitColumns"></mat-header-row>
+                          <mat-row *matRowDef="let row; columns: vacantUnitColumns;"> </mat-row>
+                      </mat-table>
+                      <span *ngIf="(vacantUnitsDataSource.meta$ | async)['total'] ===0">No Data</span>
+
+                      <div class="d-flex justify-content-center spinner-container"
+                           *ngIf="(vacantUnitsDataSource?.loading$ | async) || loader">
+                          <mat-progress-bar
+                                  color="green"
+                                  mode="query"
+                                  value=50
+                                  bufferValue=75>
+                          </mat-progress-bar>
+                      </div>
+
+                      <mat-paginator #pagination
+                                     [length]="meta?.total"
+                                     [pageIndex]="pageIndex"
+                                     [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+                      </mat-paginator>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

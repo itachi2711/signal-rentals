@@ -1,0 +1,36 @@
+<div class="main-content">
+    <ng-template #no_data>
+        <div class="not-found">
+            <mat-icon>error</mat-icon> Not Found
+        </div>
+    </ng-template>
+    <div class="container-fluid" *ngIf="readingData$ | async as reading; else no_data">
+        <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title">Utility Reading Details</h4>
+                            <p class="card-title">{{reading?.property?.property_name}} - {{reading?.property?.location}},
+                                {{reading?.unit?.unit_name}}
+                            </p>
+                            <p class="card-category">
+                                {{reading?.utility?.utility_display_name}} on {{reading?.reading_date}}
+                            </p>
+                        </div>
+                        <div class="card-body">
+
+                            <nav mat-tab-nav-bar>
+
+                                <a mat-tab-link routerLinkActive #general="routerLinkActive" [active]="general.isActive"
+                                   [routerLinkActiveOptions]="{exact: true}" routerLink="/readings/{{readingID}}">
+                                    <span class="nav-text">  Info </span></a>
+                            </nav>
+
+                            <router-outlet></router-outlet>
+
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

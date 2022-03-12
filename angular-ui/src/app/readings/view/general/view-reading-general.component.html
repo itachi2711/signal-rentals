@@ -1,0 +1,51 @@
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Property Name / Unit</mat-label>
+                            <input matInput disabled value="{{(readingData$|async)?.property?.property_name}}
+                             ({{(readingData$|async)?.unit?.unit_name}})">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-4">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Property Code</mat-label>
+                            <input matInput disabled value="{{(readingData$|async)?.property?.property_code}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-4">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Location</mat-label>
+                            <input matInput disabled value="{{(readingData$|async)?.property?.location}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                        <mat-label>Utility</mat-label>
+                            <input matInput placeholder="First Name" disabled value="{{(readingData$|async)?.utility?.utility_display_name}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-4">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Reading Date</mat-label>
+                            <input matInput placeholder="Middle Name" disabled value="{{(readingData$|async)?.reading_date}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-4">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Current Reading</mat-label>
+                            <input matInput placeholder="Last Name" disabled value="{{(readingData$|async)?.current_reading}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

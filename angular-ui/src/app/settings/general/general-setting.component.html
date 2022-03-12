@@ -1,0 +1,278 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-info">
+                <p class="card-category"> {{ 'robi.settings.general.title' | translate }}</p>
+            </div>
+            <div class="card-body">
+
+                <ng-container *ngIf="settings$ | async as settings">
+
+                    <form [formGroup] = "form" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                                            <mat-label>Company Name</mat-label>
+                                            <input matInput placeholder="Company Name" formControlName="company_name">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                                            <mat-label>Contact Email</mat-label>
+                                            <input matInput placeholder="Contact Email" formControlName="email">
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                                            <mat-label>Phone</mat-label>
+                                            <input matInput placeholder="Phone" formControlName="phone">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                                            <mat-label>Default Currency</mat-label>
+                                            <input matInput placeholder="Currency" formControlName="currency">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <mat-form-field class="full-width" color="primary" appearance="outline">
+                                            <mat-label>{{'robi.settings.themes.placeholder' | translate}}</mat-label>
+                                            <mat-select [ngModel]="settings.theme"
+                                                        (selectionChange)="onThemeSelect($event)"
+                                                        formControlName="theme">
+                                                <mat-option *ngFor="let t of themes" [value]="t.value">
+                                                    {{ 'robi.settings.themes.' + t.label | translate }}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <!--    <div class="col-md-6">
+                                            <mat-form-field class="full-width" color="primary" appearance="outline">
+                                                <mat-label>{{'robi.settings.general.placeholder' | translate}}</mat-label>
+                                                <mat-select [placeholder]="'robi.settings.general.placeholder' | translate"
+                                                            [ngModel]="settings.language"
+                                                            (selectionChange)="onLanguageSelect($event)"
+                                                            name="language">
+                                                    <mat-option *ngFor="let l of languages" [value]="l.value">
+                                                        {{ 'robi.settings.general.language.' + l.label | translate }}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>-->
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+
+                                <div class="logo centerTop">
+                                    <figure class="item simple-text" *ngIf="showPhoto">
+                                        <img class="img" [src]="showPhoto | async" alt="Logo">
+                                    </figure>
+                                    <div>
+                                        <input type="file" #logoFileInput class="file-input" accept="image/*" (change)="onProfilePhotoSelect($event.target.files)">
+                                        <button mat-button class="mat-raised-button" (click)="logoFileInput.click()">
+                                            <i class="material-icons">attachment</i>
+                                            Logo</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field class="full-width" color="primary" appearance="outline">
+                                    <mat-label>Physical Address</mat-label>
+                                    <input matInput placeholder="Physical Address" formControlName="physical_address">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field class="full-width" color="primary" appearance="outline">
+                                    <mat-label>Postal Address</mat-label>
+                                    <input matInput placeholder="Postal Address" formControlName="postal_address">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <mat-form-field class="full-width" color="primary" appearance="outline">
+                                    <mat-label>Website Url</mat-label>
+                                    <input matInput placeholder="Website Url" formControlName="website_url">
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <mat-form-field class="full-width" color="primary" appearance="outline">
+                                    <mat-label>ZIP / Postal Code</mat-label>
+                                    <input matInput placeholder="ZIP / Postal Code" formControlName="postal_code">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-6">
+                                <mat-form-field class="full-width" color="primary" appearance="outline">
+                                    <mat-label>Date Format</mat-label>
+                                    <mat-select placeholder="Date Format" formControlName="date_format">
+                                        <mat-option *ngFor="let dateFormat of dateFormats" [value]="dateFormat.name">
+                                            {{dateFormat.display_name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <mat-form-field class="full-width" color="primary" appearance="outline">
+                                    <mat-label>Amount Thousand Separator</mat-label>
+                                    <mat-select placeholder="Amount Thousand Separator" formControlName="amount_thousand_separator">
+                                        <mat-option *ngFor="let amountThousandSeparator of amountThousandSeparators" [value]="amountThousandSeparator.name">
+                                            {{amountThousandSeparator.display_name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4">
+                                <mat-form-field class="full-width" color="primary" appearance="outline">
+                                    <mat-label>Amount Decimal Separator</mat-label>
+                                    <mat-select placeholder="Amount Decimal Separator" formControlName="amount_decimal_separator">
+                                        <mat-option *ngFor="let amountDecimalSeparator of amountDecimalSeparators" [value]="amountDecimalSeparator.name">
+                                            {{amountDecimalSeparator.display_name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-md-4">
+                                <mat-form-field class="full-width" color="primary" appearance="outline">
+                                    <mat-label>Amount Decimals</mat-label>
+                                    <mat-select placeholder="Amount Decimals" formControlName="amount_decimal">
+                                        <mat-option *ngFor="let amountDecimal of amountDecimals" [value]="amountDecimal.name">
+                                            {{amountDecimal.display_name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="divider divider-md"></div>
+
+                        <div class="d-flex justify-content-center spinner-container" *ngIf="loader">
+                            <mat-progress-bar
+                                    color="green"
+                                    mode="query"
+                                    value=50
+                                    bufferValue=75>
+                            </mat-progress-bar>
+                        </div>
+
+                        <div>
+                            <button mat-raised-button type="submit" class="btn pull-right" color="accent"
+                                    (click)="update()" [disabled]="!form.valid || loader">Update Settings</button>
+                        </div>
+
+                        <div class="clearfix"></div>
+                    </form>
+
+
+
+
+                   <!-- <div class="row">
+                        <div class="col-md-6 group" [ngClass]="routeAnimationsElements">
+                            <div class="icon-form-field">
+                                <mat-icon color="accent"><fa-icon icon="language" color="accent"></fa-icon></mat-icon>
+                                <mat-form-field>
+                                    <mat-select [placeholder]="'robi.settings.general.placeholder' | translate"
+                                                [ngModel]="settings.language"
+                                                (selectionChange)="onLanguageSelect($event)"
+                                                name="language">
+                                        <mat-option *ngFor="let l of languages" [value]="l.value">
+                                            {{ 'robi.settings.general.language.' + l.label | translate }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="icon-form-field">
+                                <mat-icon color="accent"><fa-icon icon="bars" color="accent"></fa-icon></mat-icon>
+                                <mat-placeholder>{{ 'robi.settings.themes.sticky-header' | translate }}
+                                </mat-placeholder>
+                                <mat-slide-toggle
+                                        [checked]="settings.stickyHeader"
+                                        (change)="onStickyHeaderToggle($event)">
+                                </mat-slide-toggle>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 group" [ngClass]="routeAnimationsElements">
+                            <h2>{{ 'robi.settings.themes.title' | translate }}</h2>
+                            <div class="icon-form-field">
+                                <mat-icon color="accent"><fa-icon icon="paint-brush" color="accent"></fa-icon></mat-icon>
+                                <mat-form-field>
+                                    <mat-select [placeholder]="'robi.settings.themes.placeholder' | translate"
+                                                [ngModel]="settings.theme"
+                                                (selectionChange)="onThemeSelect($event)"
+                                                name="themes">
+                                        <mat-option *ngFor="let t of themes" [value]="t.value">
+                                            {{ 'robi.settings.themes.' + t.label | translate }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="icon-form-field">
+                                <mat-icon color="accent"><fa-icon icon="lightbulb" color="accent"></fa-icon></mat-icon>
+                                <mat-placeholder>{{ 'robi.settings.themes.night-mode' | translate }}
+                                </mat-placeholder>
+                                <mat-slide-toggle
+                                        [checked]="settings.autoNightMode"
+                                        (change)="onAutoNightModeToggle($event)">
+                                </mat-slide-toggle>
+                            </div>
+                        </div>
+                        <div class="col-md-6 group" [ngClass]="routeAnimationsElements">
+                            <h2>{{ 'robi.settings.animations.title' | translate }}</h2>
+                            <div class="icon-form-field">
+                                <mat-icon color="accent"><mat-icon color="accent"><fa-icon icon="window-maximize"></fa-icon></mat-icon></mat-icon>
+                                <mat-placeholder>{{ 'robi.settings.animations.page' | translate }}
+                                </mat-placeholder>
+                                <mat-slide-toggle
+                                        matTooltip="Sorry, this feature is disabled in IE, EDGE and Safari"
+                                        matTooltipPosition="before"
+                                        *ngIf="settings.pageAnimationsDisabled"
+                                        disabled>
+                                </mat-slide-toggle>
+                                <mat-slide-toggle
+                                        *ngIf="!settings.pageAnimationsDisabled"
+                                        [checked]="settings.pageAnimations"
+                                        (change)="onPageAnimationsToggle($event)">
+                                </mat-slide-toggle>
+                            </div>
+                            <div class="icon-form-field">
+                                <mat-icon color="accent"><fa-icon icon="stream" color="accent"></fa-icon></mat-icon>
+                                <mat-placeholder>{{ 'robi.settings.animations.elements' | translate }}
+                                </mat-placeholder>
+                                <mat-slide-toggle
+                                        [checked]="settings.elementsAnimations"
+                                        (change)="onElementsAnimationsToggle($event)">
+                                </mat-slide-toggle>
+                            </div>
+                        </div>
+                    </div>-->
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</div>

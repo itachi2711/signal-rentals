@@ -1,0 +1,80 @@
+<div class="main-content">
+    <div class="container-fluid" *ngIf="leaseData$ | async as lease">
+        <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <div class="row">
+                                <div class="col-8">
+                                    <h4 class="card-title">Lease Details</h4>
+                                    <p class="card-category">{{lease?.lease_number}}</p>
+                                </div>
+                                <div class="col-4 text-right" *ngIf="isAdmin$ | async">
+                                    <button mat-icon-button [matMenuTriggerFor]="menu" *robiPermission="['edit-lease', 'delete-lease']">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button *ngIf="lease?.terminated_on == null" mat-menu-item matTooltip="Edit Lease." [matTooltipPosition]="'above'"
+                                                routerLink="edit" (click)="onSelected(lease)">
+                                            <mat-icon>edit</mat-icon>
+                                            <span>Edit Lease</span>
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <nav mat-tab-nav-bar>
+                                <a mat-tab-link routerLinkActive #general="routerLinkActive" [active]="general.isActive"
+                                   [routerLinkActiveOptions]="{exact: true}"
+                                   routerLink="/leases/{{leaseID}}">
+                                    <span class="nav-text">  Info </span></a>
+
+                                <a mat-tab-link routerLinkActive #invoices="routerLinkActive" [active]="invoices.isActive"
+                                   [routerLink]="['invoices']">
+                                    <span class="nav-text">   Invoices </span></a>
+
+                               <!-- <a mat-tab-link routerLinkActive #documents="routerLinkActive" [active]="documents.isActive"
+                                   [routerLink]="['documents']">
+                                    <span class="nav-text">  Documents </span></a>-->
+                            </nav>
+                            <router-outlet></router-outlet>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header card-header-info">
+                                <h4 class="card-title">Summary</h4>
+                                <p class="card-category"></p>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-category text-gray"> Lease: {{lease?.lease_number}}</div>
+                                <div class="card-category text-gray">
+                                    Property: {{lease?.property?.property_name}} - ({{lease?.property?.property_code}})
+                                </div>
+                                <div class="card-category text-gray"> Unit: {{lease?.unit_names}}</div>
+                                <div class="card-category text-gray"> Tenant: {{lease?.tenant_names}}</div>
+                                <div class="card-category text-gray"> Start Date: {{lease?.start_date}}</div>
+                            </div>
+                        </div>
+                    <div class="card" *ngIf="isAdmin$ | async">
+                        <ng-container *robiPermission="['terminate-lease']">
+                            <button *ngIf="lease?.terminated_on == null" mat-raised-button  color="warn" (click)="terminateLease(lease)">
+                                Terminate Lease ({{lease?.lease_number}})
+                            </button>
+                        </ng-container>
+                        <ng-container *ngIf="lease?.terminated_on != null">
+                            <div class="card-header-warning">
+                                <h4 class="card-title">Terminated</h4>
+                            </div>
+                            <div class="card-body">
+                               <div>By: {{lease?.terminate_user?.first_name}}</div>
+                               <div>On: {{lease?.terminated_on}}</div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

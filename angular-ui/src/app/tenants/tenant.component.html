@@ -1,0 +1,113 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <ng-container *robiPermission="['create-tenant']">
+            <div class="fab-container">
+                <button mat-fab class="fab-toggler" [routerLink]="['create']">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            </ng-container>
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">{{ 'robi.tenants.title' | translate }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row search-form-section">
+                            <div class="col-5" *robiPermission="['create-tenant']">
+                                <button [disabled]="(dataSource?.loading$ | async)" mat-button matPrefix mat-stroked-button aria-label="add new"
+                                        [routerLink]="['create']">
+                                    <mat-icon>add</mat-icon>Add Tenant
+                                </button>
+                            </div>
+                            <div class="col-7" [hidden]="!(isAdmin$ | async)">
+                                <mat-form-field class="search-form-field">
+                                    <input matInput #search placeholder="{{ 'robi.filter' | translate }}" autocomplete="off" [disabled]="meta?.total===0">
+                                    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="search.value" (click)="clearSearch()">
+                                        <mat-icon>close</mat-icon></button>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <mat-table #table [dataSource]="dataSource" matSort matSortActive="first_name" matSortDirection="desc"
+                                       matSortDisableClear>
+
+                                <ng-container matColumnDef="first_name">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
+
+                                    <mat-cell *matCellDef="let row">
+                                        <button mat-flat-button routerLink="{{row.id}}" (click)="onSelected(row)">
+                                            <span class="link">{{row.first_name}}</span>
+                                        </button>
+                                    </mat-cell>
+
+                                </ng-container>
+
+                                <ng-container matColumnDef="last_name">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.last_name}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="gender">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Gender </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.gender}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="phone">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Phone </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.phone}} </mat-cell>
+                                </ng-container>
+								
+                                <ng-container matColumnDef="actions">
+                                    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                                    <mat-cell *matCellDef="let row" class="button-row">
+                                        <button mat-raised-button type="button" matTooltip="View Tenant" [matTooltipPosition]="'above'"
+                                                class="btn btn-link btn-sm btn-just-icon" routerLink="{{row.id}}"
+                                                (click)="onSelected(row)">
+                                            <i class="material-icons">expand_more</i>
+                                        </button>
+
+                                        <ng-container *robiPermission="['edit-tenant', 'delete-tenant']">
+                                            <button mat-raised-button type="button" matTooltip="Edit Tenant"
+                                                    [matTooltipPosition]="'above'" class="btn btn-link btn-sm btn-just-icon"
+                                                    routerLink="{{row.id}}/edit" (click)="onSelected(row)">
+                                                <i class="material-icons">edit</i>
+                                            </button>
+                                        </ng-container>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"> </mat-row>
+                            </mat-table>
+                            <span *ngIf="meta?.total===0">No Data</span>
+
+                            <div class="d-flex justify-content-center spinner-container"
+                                 *ngIf="(dataSource?.loading$ | async) || loader">
+                                <mat-progress-bar
+                                        color="green"
+                                        mode="query"
+                                        value=50
+                                        bufferValue=75>
+                                </mat-progress-bar>
+                            </div>
+
+                            <mat-paginator #pagination
+                                           [length]="meta?.total"
+                                           [pageIndex]="pageIndex"
+                                           [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+                            </mat-paginator>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

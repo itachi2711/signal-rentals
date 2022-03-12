@@ -1,0 +1,140 @@
+<h5 mat-dialog-title *ngIf="isAdd">New Vacation Notice
+    <ng-container *ngIf="formError$ | async">
+        <mat-icon color="warn">error_outline</mat-icon>
+    </ng-container>
+</h5>
+<h5 mat-dialog-title *ngIf="!isAdd">Edit Vacation Notice
+    <ng-container *ngIf="formError$ | async">
+        <mat-icon color="warn">error_outline</mat-icon>
+    </ng-container>
+</h5>
+
+
+<mat-dialog-content class="mat-dialog-data" [formGroup]="form"  (ngSubmit)="create()">
+
+    <div class="row" *ngIf="isAdmin$ | async">
+        <div class="col-sm-12">
+            <mat-form-field color="primary" appearance="outline">
+                <mat-label>Tenant</mat-label>
+                <mat-select placeholder="Tenant*" formControlName="tenant" #tenantSelect
+                            (selectionChange)="onTenantItemChange(tenantSelect.value)">
+                    <mat-option>
+                        <ngx-mat-select-search [formControl]="tenantServerSideFilteringCtrl" [searching]="searching"
+                                               placeholderLabel="Find Tenant..."
+                                               noEntriesFoundLabel="No matching Tenant found ...">
+                        </ngx-mat-select-search>
+                    </mat-option>
+                    <mat-option *ngFor="let tenant of tenantsFiltered$ | async" [value]="tenant">
+                        {{tenant?.first_name}} {{tenant?.middle_name}} {{tenant?.last_name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="start" *ngIf="formErrors?.tenant" class="form__error">{{ formErrors.tenant }}</mat-error>
+                <mat-hint class="text-info" align="start" *ngIf="tenant$ | async as tenant">
+                    <div>
+                       <span>
+                        <mat-icon inline=true>phone</mat-icon>
+                           {{tenant?.email}}
+                       </span>
+
+                        <span class="ml-5">
+                        ID / Pass : {{tenant?.id_passport_number}}
+                       </span>
+
+                        <span class="ml-5">
+                        {{tenant?.nationality}}
+                       </span>
+                    </div>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+    </div>
+
+ <!--   <div class="row">
+        <div class="col-6">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Lease</mat-label>
+                <mat-select placeholder="Lease" formControlName="lease_id" #leaseSelect
+                            (selectionChange)="onLeaseItemChange(leaseSelect.value)">
+                    <mat-option *ngFor="let lease of (leases$ | async)" [value]="lease.id">
+                        {{lease?.lease_number}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </div>-->
+
+    <div class="row mb-4">
+        <div class="col-6">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Lease</mat-label>
+                <mat-select formControlName="lease_id" #leaseSelect
+                            (selectionChange)="onLeaseItemChange(leaseSelect.value)">
+                        <mat-option *ngFor="let lease of (leases$ | async)" [value]="lease.id">
+                            {{lease?.lease_number}}
+                        </mat-option>
+                </mat-select>
+                <mat-error align="start" *ngIf="formErrors?.lease" class="form__error">{{ formErrors.lease }}</mat-error>
+                <mat-hint class="text-info" align="start" *ngIf="lease$ | async as lease">
+                    <div>
+                       <span class="mr-1">
+                        {{lease?.property?.property_name}} {{lease?.property?.location}}
+                       </span>
+
+                        <span class="mr-1">
+                           <ng-container *ngFor="let unit of lease?.units; let i = index;">
+                                <span>{{unit.unit_name }}</span>
+                            </ng-container>
+                       </span>
+
+                        <span>
+                           {{lease?.lease_type?.lease_type_display_name}}
+                       </span>
+                    </div>
+                </mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field  class="full-width" color="primary" appearance="outline">
+                <mat-label>Vacating Date</mat-label>
+                <input matInput (click)="vacating_date.open()" [matDatepicker]="vacating_date"
+                       formControlName="vacating_date" placeholder="Vacating Date">
+                <mat-datepicker-toggle matSuffix [for]="vacating_date"></mat-datepicker-toggle>
+                <mat-datepicker touchUi #vacating_date></mat-datepicker>
+                <mat-error align="start" *ngIf="formErrors?.vacating_date" class="form__error">{{ formErrors.vacating_date }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Vacating Reason</mat-label>
+                <textarea  formControlName="vacating_reason" matInput #vacating_reason placeholder="Vacating Reason" maxlength="150" rows="2"></textarea>
+                <mat-hint align="end">{{vacating_reason.value.length}} / 150</mat-hint>
+                <mat-error align="start" *ngIf="formErrors?.vacating_reason" class="form__error">{{ formErrors.vacating_reason }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+</mat-dialog-content>
+
+<div class="d-flex justify-content-center spinner-container" *ngIf="loader">
+    <mat-progress-bar
+            color="primary"
+            mode="query"
+            value=50
+            bufferValue=75>
+    </mat-progress-bar>
+</div>
+
+<mat-dialog-actions align="center">
+
+    <ng-container *ngIf="isAdmin$ | async">
+        <button class="float-left mr-2" *ngIf="!isAdd" [disabled]="loader" mat-button color="warn" [mat-dialog-close]="true"
+                (click)="deleting()">Delete
+        </button>
+    </ng-container>
+
+    <button [disabled]="loader" mat-button class="mr-2" color="primary" [mat-dialog-close]="true" (click)="close()">Close</button>
+    <button mat-raised-button color="primary" (click)="createOrUpdate()" [disabled]="!form.valid || loader">Save</button>
+</mat-dialog-actions>

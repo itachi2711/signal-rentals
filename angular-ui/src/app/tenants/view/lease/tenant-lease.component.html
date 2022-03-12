@@ -1,0 +1,75 @@
+<div class="table-responsive">
+
+    <mat-table #table [dataSource]="leaseDataSource" matSort matSortActive="lease_number" matSortDirection="desc" matSortDisableClear>
+
+        <ng-container matColumnDef="lease_number">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Number </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-flat-button routerLink="/leases/{{row?.id}}" (click)="onLeaseSelected(row)">
+                    <span class="link">{{row.lease_number}}</span>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="unit_names">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Unit </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.unit_names}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="rent_amount">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Amount </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.rent_amount}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="lease_type_id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Lease Type </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.lease_type?.lease_type_display_name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="due_on">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Due On </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.due_on}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="billing_frequency">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Frequency </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.billing_frequency}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="billed_on">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Last Billing </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.billed_on}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <div class="{{row.status?.status_color}}">
+                    <mat-icon>{{row.status?.status_icon}}</mat-icon>
+                    {{row.status?.status_text}}
+                </div>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="leaseColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: leaseColumns;"> </mat-row>
+
+    </mat-table>
+    <span *ngIf="meta?.total===0">No Lease Data.</span>
+
+    <div class="d-flex justify-content-center spinner-container" *ngIf="(leaseDataSource?.loading$ | async) || loader">
+        <mat-progress-bar
+                color="green"
+                mode="query"
+                value=50
+                bufferValue=75>
+        </mat-progress-bar>
+    </div>
+
+    <mat-paginator #pagination
+                   [length]="meta?.total"
+                   [pageIndex]="pageIndex"
+                   [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+    </mat-paginator>
+
+</div>

@@ -1,0 +1,96 @@
+<div class="main-content">
+    <ng-template #no_data>
+        <div class="not-found">
+           <mat-icon>error</mat-icon> Not Found
+        </div>
+    </ng-template>
+
+    <div class="container-fluid" *ngIf="paymentData$ | async as payment; else no_data">
+        <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title">{{payment.receipt_number}}</h4>
+                            <p class="card-category"></p>
+                        </div>
+                        <div class="card-body">
+                            <iframe *ngIf="pdfSrc" width="500" height="600" style="width: 100%"
+                                    [src]="pdfSrc" type="application/pdf">
+                            </iframe>
+                            <div class="d-flex justify-content-center spinner-container"
+                                 *ngIf="loader">
+                                <mat-progress-bar
+                                        color="primary"
+                                        mode="query"
+                                        value=50
+                                        bufferValue=75>
+                                </mat-progress-bar>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header card-header-info">
+                                <h4 class="card-title">Summary</h4>
+                                <p class="card-category"> Receipt #: {{payment?.receipt_number}}</p>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="card-category text-gray"> Amount </div>
+                                        {{payment?.amount}}
+                                    </div>
+
+                                    <div class="col-6">
+                                        <div class="card-category text-gray"> Payment Date </div>
+                                        {{payment?.payment_date}}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="card-category text-gray"> Payment Method </div>
+                                        {{payment?.payment_method?.payment_method_display_name}}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="card-category text-gray"> Property </div>
+                                        {{payment?.property?.property_name}}
+                                        ({{payment?.property?.property_code}})
+                                        - {{payment?.property?.location}}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="card-category text-gray"> Lease </div>
+                                        {{payment?.lease?.lease_number}}
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="card-category text-gray"> Unit </div>
+                                        <div>{{payment?.lease?.unit_names}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card-category text-gray"> Tenant </div>
+                                        <div class="row col-12">
+                                            {{payment?.tenant?.first_name}} {{payment?.tenant?.middle_name}} {{payment?.tenant?.last_name}}
+                                            <span class="ml-5" *ngIf="payment?.tenant?.contact_phone"><mat-icon inline=true>phone</mat-icon>
+                                                {{payment?.tenant?.contact_phone}}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+        </div>
+    </div>
+</div>

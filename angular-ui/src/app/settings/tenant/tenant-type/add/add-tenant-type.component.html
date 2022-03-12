@@ -1,0 +1,56 @@
+<h5 mat-dialog-title *ngIf="isAdd">New Tenant Type
+    <ng-container *ngIf="formError$ | async">
+        <mat-icon color="warn">error_outline</mat-icon>
+    </ng-container>
+</h5>
+<h5 mat-dialog-title *ngIf="!isAdd">Edit Tenant Type
+    <ng-container *ngIf="formError$ | async">
+        <mat-icon color="warn">error_outline</mat-icon>
+    </ng-container>
+</h5>
+
+<mat-dialog-content class="mat-dialog-data" [formGroup]="form">
+
+    <div class="row">
+        <div class="col-sm-6">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="tenant_type_name" placeholder="Name">
+                <mat-error align="start" *ngIf="formErrors?.tenant_type_name" class="form__error">{{ formErrors.tenant_type_name }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Display Name</mat-label>
+                <input matInput formControlName="tenant_type_display_name" placeholder="Display Name">
+                <mat-error align="start" *ngIf="formErrors?.tenant_type_display_name" class="form__error">{{ formErrors.tenant_type_display_name }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea  formControlName="tenant_type_description" matInput #tenant_type_description placeholder="Description" maxlength="150" rows="2"></textarea>
+                <mat-hint align="end">{{tenant_type_description.value.length}} / 150</mat-hint>
+                <mat-error align="start" *ngIf="formErrors?.tenant_type_description" class="form__error">{{ formErrors.tenant_type_description }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+</mat-dialog-content>
+
+<div class="d-flex justify-content-center spinner-container" *ngIf="loader">
+    <mat-progress-bar
+            color="primary"
+            mode="query"
+            value=50
+            bufferValue=75>
+    </mat-progress-bar>
+</div>
+
+<mat-dialog-actions align="center">
+    <button [disabled]="loader" mat-button class="mr-2" color="accent" [mat-dialog-close]="true" (click)="close()">Cancel</button>
+    <button mat-raised-button  color="primary" (click)="createOrUpdate()" [disabled]="!form.valid || loader">Save</button>
+</mat-dialog-actions>

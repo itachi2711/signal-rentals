@@ -1,0 +1,168 @@
+@use '~@angular/material' as mat;
+@import '~@angular/material/theming';
+
+// mixin name will be used in main style.scss
+@mixin sidebar-theme($theme) {
+
+  // retrieve variables from theme
+  // (all possible variables, use only what you really need)
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, accent);
+  $foreground: map-get($theme, foreground);
+  $background: map-get($theme, background);
+
+  // all of these variables contain many additional variables
+
+  .sidebar li.active > a {
+    /*color: mat-color($foreground, text);*/
+    background-color: mat.get-color-from-palette($primary);
+    box-shadow: 0 4px 20px 0px mat.get-color-from-palette($accent, 100), 0 7px 10px -5px mat.get-color-from-palette($accent, 100);
+
+  }
+
+  .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    background-color: mat.get-color-from-palette($primary);
+    box-shadow: 0 4px 20px 0px mat.get-color-from-palette($accent, 100), 0 7px 10px -5px mat.get-color-from-palette($accent, 100);
+
+   /* 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(244, 67, 54, 0.4)*/
+  }
+
+/*  .card-header-info {
+    background: linear-gradient(60deg, mat-color($primary), mat-color($primary));
+    box-shadow: 0 4px 20px 0px mat-color($primary), 0 7px 10px -5px mat-color($primary);
+  }*/
+
+
+  .card-header-accent{
+    background: linear-gradient(60deg, mat.get-color-from-palette($accent), mat.get-color-from-palette($accent));
+  }
+
+  .card-header-info .card-icon,
+  .card-header-info .card-text,
+  .card-header-info:not(.card-header-icon):not(.card-header-text),
+  &.bg-info,
+  &.card-rotate.bg-info .front,
+  &.card-rotate.bg-info .back{
+    background: linear-gradient(60deg, mat.get-color-from-palette($primary), mat.get-color-from-palette($primary));
+    box-shadow: 0 4px 20px 0px mat.get-color-from-palette($accent, 100), 0 7px 10px -5px mat.get-color-from-palette($accent, 100);
+
+    /*
+    box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(156, 39, 176, 0.4);
+    */
+  }
+
+  .text-color-primary{
+    color:  mat.get-color-from-palette($primary);
+  }
+
+/*  .mat-button-toggle {
+    background-color: mat-color($primary);
+    color: mat-color($primary, default-contrast);
+  }*/
+
+  .mat-button-toggle-checked {
+    background-color: mat.get-color-from-palette($accent);
+    color: mat.get-color-from-palette($accent, default-contrast);
+  }
+
+/*  .mat-row:hover {
+    background-color: mat-color($accent, A100);
+    cursor: pointer;
+  }*/
+
+  .highlight{
+    /* background: red;  green */
+    background: mat.get-color-from-palette($accent, A200);
+  }
+
+
+
+
+
+  /*  big-input {
+
+      input {
+
+        // retrieve particular color from variable, rg: text, base, divider, ...
+        color: mat-color($foreground, text);
+        background-color: mat-color($background, card);
+
+        // or use "default" subvariable by default, oh the puns :)
+        border: 1px solid mat-color($accent);
+      }
+    }*/
+}
+
+
+
+
+
+@mixin robi-app-component-theme($theme) {
+  $primary: map-get($theme, primary);
+  $accent: map-get($theme, accent);
+  $warn: map-get($theme, warn);
+
+  mat-sidenav-container {
+    mat-toolbar {
+      button {
+        &.active {
+          color: mat.get-color-from-palette($accent, default-contrast);
+          background-color: mat.get-color-from-palette($accent);
+        }
+      }
+
+      .link {
+        color: mat.get-color-from-palette($primary, default-contrast);
+      }
+    }
+
+    mat-sidenav {
+      .mat-list-item {
+        &.active {
+          color: mat.get-color-from-palette($accent, default-contrast);
+          background-color: mat.get-color-from-palette($accent) !important;
+
+          &:hover {
+            background-color: mat.get-color-from-palette($accent, darker) !important;
+          }
+        }
+      }
+    }
+
+    .footer {
+      color: mat.get-color-from-palette($primary, lighter);
+      background-color: mat.get-color-from-palette($primary, darker);
+
+      .links,
+      .signature {
+        a {
+          color: mat.get-color-from-palette($primary, lighter);
+          &:hover {
+            color: mat.get-color-from-palette($accent);
+          }
+        }
+      }
+    }
+  }
+
+/*  .error-notification-overlay {
+    color: mat-color($warn, default-contrast);
+    background-color: mat-color($warn);
+  }
+
+  .info-notification-overlay {
+    color: mat-color($accent, default-contrast);
+    background-color: mat-color($accent);
+  }
+
+  .success-notification-overlay {
+    color: mat-color($success-colors, default-contrast);
+    background-color: mat-color($success-colors);
+  }
+
+  .warning-notification-overlay {
+    color: mat-color($warning-colors, default-contrast);
+    background-color: mat-color($warning-colors);
+  }*/
+}

@@ -1,0 +1,70 @@
+<div class="table-responsive">
+
+    <mat-table #table [dataSource]="unitDataSource" matSort matSortActive="unit_name"
+               matSortDirection="desc" matSortDisableClear>
+
+        <ng-container matColumnDef="unit_name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Unit Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.unit_name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="unit_type_id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Unit Type </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.unit_type?.unit_type_display_name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="unit_mode">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Unit Mode </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.unit_mode}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="bed_rooms">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Bed Rooms </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.bed_rooms}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="total_rooms">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Total Rooms </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.total_rooms}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="square_foot">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Square Foot </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.square_foot}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="leases">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Lease </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <ng-container *ngIf="row?.lease_numbers == ''">
+                    -
+                </ng-container>
+                <ng-container *ngFor="let lease of row?.leases; let i = index; let c = count;">
+                                {{lease?.lease_number}}
+                                <ng-container *ngIf="i != c-1">,</ng-container>
+                    </ng-container>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="unitColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: unitColumns;"> </mat-row>
+
+    </mat-table>
+    <span *ngIf="meta?.total===0">No Lease Data.</span>
+
+    <div class="d-flex justify-content-center spinner-container" *ngIf="(unitDataSource?.loading$ | async) || loader">
+        <mat-progress-bar
+                color="green"
+                mode="query"
+                value=50
+                bufferValue=75>
+        </mat-progress-bar>
+    </div>
+
+    <mat-paginator #pagination
+                   [length]="meta?.total"
+                   [pageIndex]="pageIndex"
+                   [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+    </mat-paginator>
+
+</div>

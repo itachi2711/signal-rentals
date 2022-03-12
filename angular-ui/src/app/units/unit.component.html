@@ -1,0 +1,100 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="fab-container">
+                <button mat-fab class="fab-toggler" (click)="addDialog()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">Property Units</h4>
+                        <p class="card-category">{{(property$ | async)?.property_name}}
+                            ({{(property$ | async)?.property_code}}) - {{(property$ | async)?.location}}</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="row search-form-section">
+                            <div class="col-5">
+                                <button [disabled]="(dataSource?.loading$ | async)" mat-button matPrefix mat-stroked-button aria-label="add new"
+                                        (click)="addDialog()">
+                                    <mat-icon>add</mat-icon>Add Unit
+                                </button>
+                            </div>
+                            <div class="col-7">
+                                <mat-form-field class="search-form-field">
+                                    <input matInput #search placeholder="{{ 'robi.filter' | translate }}" autocomplete="off" [disabled]="meta?.total===0">
+                                    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="search.value" (click)="clearSearch()">
+                                        <mat-icon>close</mat-icon></button>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <mat-table #table [dataSource]="dataSource" matSort matSortActive="unit_name" matSortDirection="desc"
+                                       matSortDisableClear>
+
+                                <ng-container matColumnDef="unit_name">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Unit Name </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.unit_name}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="unit_mode">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Unit Mode </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.unit_mode}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="unit_type_id">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Unit Type </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.unit_type?.unit_type_display_name}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="total_rooms">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Total Rooms </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.total_rooms}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="bed_rooms">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Bed Rooms </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.bed_rooms}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="actions">
+                                    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                                    <mat-cell *matCellDef="let row" class="button-row">
+                                        <button mat-raised-button type="button" matTooltip="Edit Property" [matTooltipPosition]="'above'"
+                                                class="btn btn-link btn-sm btn-just-icon" (click)="addDialog(false, row)">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"> </mat-row>
+                            </mat-table>
+                            <span *ngIf="(dataSource.meta$ | async)['total'] ===0">No Data</span>
+
+                            <div class="d-flex justify-content-center spinner-container"
+                                 *ngIf="(dataSource?.loading$ | async) || loader">
+                                <mat-progress-bar
+                                        color="green"
+                                        mode="query"
+                                        value=50
+                                        bufferValue=75>
+                                </mat-progress-bar>
+                            </div>
+
+                            <mat-paginator #pagination
+                                           [length]="meta?.total"
+                                           [pageIndex]="pageIndex"
+                                           [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+                            </mat-paginator>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

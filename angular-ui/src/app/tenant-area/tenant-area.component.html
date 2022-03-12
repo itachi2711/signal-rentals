@@ -1,0 +1,79 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-accent">
+                        Past Payments
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <div style="display: block">
+                                <canvas baseChart
+                                        [colors]="lineChartColors"
+                                        [options]="options"
+                                        [datasets]="lineChartData"
+                                        [labels]="lineChartLabels"
+                                        [legend]="lineChartLegend"
+                                        [chartType]="lineChartType">
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-info">
+                            <p class="card-title">{{tenantSummary?.pending_amount}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            Pending Amount
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="card card-stats">
+                    <div class="card-header card-header-accent">
+                            <p class="card-title">{{tenantSummary?.total_leases}}</p>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                           Total Leases
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="card card-stats">
+                    <div class="card-header card-header-info">
+                        <ng-container *ngFor="let lease of tenantSummary?.leases; let i = index;">
+                            <tr>
+                                <td><p class="card-title">{{lease.property?.property_name}} </p></td>
+                                <td><p class="card-title ml-1"> ({{lease.property?.property_code}})</p></td>
+                                <td>
+                                    <ng-container *ngFor="let unit of lease.units">
+                                        <p class="card-title ml-2">{{unit?.unit_name}} </p>
+                                    </ng-container>
+                                </td>
+                                <td><p class="card-title ml-2"> - {{lease.property?.location}} </p></td>
+
+                            </tr>
+                        </ng-container>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            Property
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<div class="main-content">
+    <ng-template #no_data>
+        <div class="not-found">
+            <mat-icon>error</mat-icon> Not Found
+        </div>
+    </ng-template>
+    <div class="container-fluid" *ngIf="landlordData$ | async as landlord; else no_data">
+        <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <div class="row">
+                                <div class="col-8">
+                                    <h4 class="card-title">Landlord Details</h4>
+                                    <p class="card-category">{{landlord?.first_name}} {{landlord?.last_name}}</p>
+                                </div>
+                                <div class="col-4 text-right">
+                                    <button mat-icon-button [matMenuTriggerFor]="menu" *robiPermission="['edit-landlord', 'delete-landlord']">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item matTooltip="Edit Landlord." [matTooltipPosition]="'above'"
+                                                routerLink="edit" (click)="onSelected(landlord)">
+                                            <mat-icon>edit</mat-icon>
+                                            <span>Edit Landlord</span>
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <nav mat-tab-nav-bar>
+                                <a mat-tab-link routerLinkActive #general="routerLinkActive" [active]="general.isActive" [routerLinkActiveOptions]="{exact: true}"
+                                   routerLink="/landlords/{{landlordID}}">
+                                    <span class="nav-text">  Info </span></a>
+                                <a mat-tab-link routerLinkActive #properties="routerLinkActive" [active]="properties.isActive" [routerLink]="['properties']">
+                                    <span class="nav-text">   Properties </span></a>
+                            </nav>
+                            <router-outlet></router-outlet>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header card-header-info">
+                                <h4 class="card-title">Summary</h4>
+                                <p class="card-category"></p>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-category text-gray"> Properties: 10</div>
+                                <div class="card-category text-gray"> Units: 320</div>
+                                <div class="card-category text-gray"> Charge rate: 10%</div>
+                            </div>
+                        </div>
+                </div>
+        </div>
+    </div>
+</div>

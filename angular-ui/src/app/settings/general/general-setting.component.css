@@ -1,0 +1,17 @@
+figure.item {
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+}
+img {
+    width: 150px;
+    height: 150px;
+    background-color: grey;
+}
+.caption {
+    display: block;
+}
+.centerTop {
+    text-align: center;
+    padding-top: 25px;
+}

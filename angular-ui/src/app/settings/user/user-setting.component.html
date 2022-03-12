@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-info">
+                <p class="card-category">User Settings</p>
+            </div>
+
+            <div class="card-body">
+
+                <nav mat-tab-nav-bar>
+                    <a mat-tab-link routerLinkActive #user="routerLinkActive" [active]="user.isActive"
+                       [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/settings/user']">
+                        <span class="nav-text"> Users</span></a>
+
+                    <a mat-tab-link routerLinkActive #role="routerLinkActive" [active]="role.isActive" [routerLink]="['roles']">
+                        <span class="nav-text"> Roles</span></a>
+
+                    <a mat-tab-link routerLinkActive #permission="routerLinkActive" [active]="permission.isActive"
+                       [routerLink]="['permissions']">
+                        <span class="nav-text"> Permissions</span></a>
+
+                </nav>
+
+                <router-outlet></router-outlet>
+
+            </div>
+        </div>
+    </div>
+</div>

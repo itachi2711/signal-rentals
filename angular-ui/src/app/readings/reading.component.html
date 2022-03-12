@@ -1,0 +1,121 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="row">
+
+            <div class="fab-container" *robiPermission="['create-reading']">
+                <button mat-fab class="fab-toggler" [routerLink]="['create']">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">{{ 'robi.utilities.title' | translate }}</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row search-form-section">
+                            <div class="col-5">
+                                <ng-container *robiPermission="['create-reading']">
+                                    <button [disabled]="(dataSource?.loading$ | async)" mat-button matPrefix mat-stroked-button aria-label="add new"
+                                            [routerLink]="['create']">
+                                        <mat-icon>add</mat-icon>Add Utility Bill
+                                    </button>
+                                </ng-container>
+                            </div>
+                            <div class="col-7">
+                                <mat-form-field class="search-form-field">
+                                    <input matInput #search placeholder="{{ 'robi.filter' | translate }}" autocomplete="off" [disabled]="meta?.total===0">
+                                    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="search.value" (click)="clearSearch()">
+                                        <mat-icon>close</mat-icon></button>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <mat-table #table [dataSource]="dataSource" matSort matSortActive="property_id" matSortDirection="desc"
+                                       matSortDisableClear>
+
+                                <ng-container matColumnDef="current_reading">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Reading </mat-header-cell>
+                                    <mat-cell *matCellDef="let row">
+                                        <button mat-flat-button routerLink="{{row.id}}" (click)="onSelected(row)">
+                                            <span class="link">{{row.current_reading}}</span>
+                                        </button>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="utility_id">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Utility </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.utility?.utility_display_name}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="reading_date">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Reading Date </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.reading_date}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="property_id">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Property Name </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.property?.property_name}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="unit_id">
+                                    <mat-header-cell *matHeaderCellDef mat-sort-header> Unit </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.unit?.unit_name}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="actions">
+                                    <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+                                    <mat-cell *matCellDef="let row" class="button-row">
+                                        <button mat-raised-button type="button" matTooltip="View Readings" [matTooltipPosition]="'above'"
+                                                class="btn btn-link btn-sm btn-just-icon" routerLink="{{row.id}}"
+                                                (click)="onSelected(row)">
+                                            <i class="material-icons">expand_more</i>
+                                        </button>
+
+                                        <ng-container *robiPermission="['edit-reading', 'delete-reading']">
+                                        <button mat-raised-button type="button" matTooltip="Edit Readings"
+                                                [matTooltipPosition]="'above'"
+                                                class="btn btn-link btn-sm btn-just-icon"  (click)="editDialog(false, row)">
+                                            <i class="material-icons">edit</i>
+                                        </button>
+                                        </ng-container>
+                                        <button mat-raised-button type="button" matTooltip="Delete Readings"
+                                                [matTooltipPosition]="'above'" color="warn"
+                                                class="btn btn-link btn-sm btn-just-icon"  (click)="openConfirmationDialog(row)">
+                                            <i class="material-icons">delete</i>
+                                        </button>
+                                    </mat-cell>
+                                </ng-container>
+
+                                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                                <mat-row *matRowDef="let row; columns: displayedColumns;"> </mat-row>
+                            </mat-table>
+                            <span *ngIf="meta?.total===0">No Data</span>
+
+                            <div class="d-flex justify-content-center spinner-container"
+                                 *ngIf="(dataSource?.loading$ | async) || loader">
+                                <mat-progress-bar
+                                        color="green"
+                                        mode="query"
+                                        value=50
+                                        bufferValue=75>
+                                </mat-progress-bar>
+                            </div>
+
+                            <mat-paginator #pagination
+                                           [length]="meta?.total"
+                                           [pageIndex]="pageIndex"
+                                           [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+                            </mat-paginator>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

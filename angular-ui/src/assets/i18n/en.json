@@ -1,0 +1,94 @@
+{
+  "dashboard": "Dashboard",
+  "user-profilexx": "User Profile",
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "profile": "Profile"
+  },
+  "login": {
+    "username": "Enter your user name",
+    "password": "Password here"
+  },
+  "robi.filter": "Filter",
+  "robi.sidebar.dashboard": "Dashboard",
+  "robi.sidebar.setting": "Setting",
+  "robi.sidebar.landlords": "Landlords",
+  "robi.sidebar.properties": "Properties",
+  "robi.sidebar.tenants": "Tenants",
+  "robi.sidebar.leases": "Leases",
+  "robi.sidebar.utilities": "Utilities",
+  "robi.sidebar.units": "Units",
+
+  "robi.properties.title": "Properties",
+  "robi.utilities.title": "Utility Readings",
+  "robi.payments.title": "Payments",
+  "robi.tasks.title": "Tasks",
+
+  "robi.tenants.title": "Tenants",
+  "robi.tenants.new": "New Tenant",
+
+  "robi.leases.title": "Leases",
+  "robi.leases.title.new": "New Lease",
+
+  "robi.invoices.title": "Invoices",
+  "robi.invoices.title.new": "New Invoice",
+
+
+
+  "robi.sidebar.invoices": "Invoices",
+
+  "robi.sidebar.payments": "Payments",
+
+
+
+  "robi.vacate.title": "Vacate Notices",
+  "robi.landlords.title": "Landlords",
+  "robi.landlords.total": "Total",
+  "robi.landlords.active": "Active",
+  "robi.landlords.inactive": "Inactive",
+  "robi.landlords.logged_in": "Logged In",
+  "robi.landlords.today": "Today",
+  "robi.landlords.filter": "Filter",
+
+  "robi.landlords.view": "View",
+  "robi.landlords.edit": "Edit",
+  "robi.landlords.delete": "Delete",
+
+  "robi.landlords.properties": "Properties",
+  "robi.landlords.units": "",
+
+  "robi.landlords.load_more": "Load More",
+  "robi.landlords.loading": "loading",
+
+
+
+  "robi.settings.general.language.de": "German",
+  "robi.settings.general.language.en": "English",
+  "robi.settings.general.language.es": "Spanish",
+  "robi.settings.general.language.fr": "French",
+  "robi.settings.general.title": "General",
+  "robi.settings.themes.blue": "Blue",
+  "robi.settings.themes.dark": "Dark",
+  "robi.settings.themes.light": "Light",
+  "robi.settings.themes.nature": "Nature",
+  "robi.settings.themes.orange": "Orange",
+
+  "robi.settings.themes.red": "Red",
+  "robi.settings.themes.purple": "Purple",
+  "robi.settings.themes.green": "Green",
+
+  "robi.settings.themes.brown": "Brown",
+  "robi.settings.themes.grey": "Grey",
+  "robi.settings.themes.pink": "Pink",
+
+  "robi.settings.themes.night-mode": "Auto night mode (from 21:00 to 7:00)",
+  "robi.settings.themes.placeholder": "Color Theme",
+  "robi.settings.themes.saneago": "",
+  "robi.settings.general.placeholder": "Language",
+  "robi.settings.themes.sticky-header": "Sticky header",
+  "robi.settings.themes.title": "Themes",
+  "robi.settings.title": "Settings",
+  "robi.settings.animations.elements": "Navigation page elements slide up",
+  "robi.settings.animations.page": "Navigation whole page transition",
+  "robi.settings.animations.title": "Animations"
+}

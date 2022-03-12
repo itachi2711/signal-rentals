@@ -1,0 +1,80 @@
+<div class="main-content">
+    <ng-template #no_data>
+        <div class="not-found">
+            <mat-icon>error</mat-icon> Not Found
+        </div>
+    </ng-template>
+    <div class="container-fluid" *ngIf="tenantData$ | async as tenant; else no_data">
+        <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <div class="row">
+                                <div class="col-8">
+                                    <h4 class="card-title">Tenant Details</h4>
+                                    <p class="card-category">{{tenant?.first_name}} {{tenant?.last_name}}</p>
+                                </div>
+                                <div class="col-4 text-right" *robiPermission="['edit-tenant', 'delete-tenant']">
+                                    <button mat-icon-button [matMenuTriggerFor]="menu">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu">
+                                        <button mat-menu-item matTooltip="Edit Tenant." [matTooltipPosition]="'above'"
+                                                routerLink="edit" (click)="onSelected(tenant)">
+                                            <mat-icon>edit</mat-icon>
+                                            <span>Edit Tenant</span>
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            <nav mat-tab-nav-bar>
+
+                                <a mat-tab-link routerLinkActive #general="routerLinkActive" [active]="general.isActive"
+                                   [routerLinkActiveOptions]="{exact: true}" routerLink="/tenants/{{tenantID}}">
+                                    <span class="nav-text">  Info </span></a>
+
+                                <a mat-tab-link routerLinkActive #leases="routerLinkActive" [active]="leases.isActive"
+                                   [routerLink]="['leases']">
+                                    <span class="nav-text">  Leases </span></a>
+
+                                <!--<a mat-tab-link routerLinkActive #invoices="routerLinkActive" [active]="invoices.isActive"
+                                   [routerLink]="['invoices']">
+                                    <span class="nav-text">  Invoices </span></a>-->
+
+                                <a mat-tab-link routerLinkActive #payments="routerLinkActive" [active]="payments.isActive"
+                                   [routerLink]="['payments']">
+                                    <span class="nav-text">  Payments </span></a>
+
+                               <!-- <a mat-tab-link routerLinkActive #documents="routerLinkActive" [active]="documents.isActive"
+                                   [routerLink]="['documents']">
+                                    <span class="nav-text">  Documents </span></a>-->
+                            </nav>
+
+                            <router-outlet></router-outlet>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+
+                        <div class="card">
+                            <div class="card-header card-header-info">
+                                <h4 class="card-title">Summary</h4>
+                                <p class="card-category"></p>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-category text-gray"> First Name: </div>
+                                <div>{{tenant?.first_name}}</div>
+                                <div class="card-category text-gray"> Middle Name: </div>
+                                <div>{{tenant?.middle_name}}</div>
+                                <div class="card-category text-gray"> Last Name: </div>
+                                <div>{{tenant?.last_name}}</div>
+                            </div>
+                        </div>
+                </div>
+        </div>
+    </div>
+</div>

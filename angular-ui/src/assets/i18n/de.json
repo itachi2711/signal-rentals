@@ -1,0 +1,41 @@
+{
+  "dashboard": "Dashboard German",
+  "user-profilexx": "User Profile",
+  "sidebar": {
+  "dashboard": "Dashboard",
+  "user-profile": "User Profile"
+  },
+  "login": {
+  "username": "Enter your user name",
+  "password": "Password here"
+  },
+
+  "robi.sidebar.dashboard": "Instrumententafel",
+  "robi.sidebar.setting": "Rahmen",
+
+  "robi.settings.animations.elements": "Navigation Seitenelemente nach oben schieben",
+  "robi.settings.animations.page": "Navigation ganzer Seitenübergang",
+  "robi.settings.animations.title": "Animationen",
+  "robi.settings.general.language.de": "Deutsch",
+  "robi.settings.general.language.en": "Englisch",
+  "robi.settings.general.language.es": "Spanisch",
+  "robi.settings.general.language.fr": "Französisch",
+  "robi.settings.general.language.pt-br": "Portugiesisch",
+  "robi.settings.general.language.sk": "Slovakisch",
+  "robi.settings.general.language.he": "Hebreeuws",
+  "robi.settings.general.language.zh-cn": "Chinesisch",
+  "robi.settings.general.placeholder": "Sprache",
+  "robi.settings.general.title": "Haupteinstellungen",
+  "robi.settings.themes.blue": "Blau",
+  "robi.settings.themes.dark": "Dunkel",
+  "robi.settings.themes.light": "Hell",
+  "robi.settings.themes.nature": "Natur",
+  "robi.settings.themes.night-mode": "Auto Nachtmodus (von 21:00 bis 7:00)",
+  "robi.settings.themes.placeholder": "Farbthema",
+  "robi.settings.themes.saneago": "",
+  "robi.settings.themes.sticky-header": "",
+  "robi.settings.themes.title": "Thema",
+  "robi.settings.title": "Einstellungen",
+  "robi.title.long": "Angular NgRx Material Vorlage",
+  "robi.title.short": "Angular Vorlage"
+}

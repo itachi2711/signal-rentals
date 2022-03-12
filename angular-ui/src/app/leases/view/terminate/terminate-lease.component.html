@@ -1,0 +1,43 @@
+<h5 mat-dialog-title>Terminate Lease  ({{ leaseNumber }})
+    <ng-container *ngIf="formError$ | async">
+        <mat-icon color="warn">error_outline</mat-icon>
+    </ng-container>
+</h5>
+
+<mat-dialog-content class="mat-dialog-data" [formGroup]="form">
+    <mat-form-field  class="full-width" color="primary" appearance="outline">
+        <mat-label>End Date *</mat-label>
+        <input matInput (click)="end_date.open()" [matDatepicker]="end_date" formControlName="end_date" placeholder="End Date">
+        <mat-datepicker-toggle matSuffix [for]="end_date"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #end_date></mat-datepicker>
+        <mat-error align="start" *ngIf="formErrors?.end_date" class="form__error">{{ formErrors.end_date }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width" color="primary" appearance="outline">
+        <mat-label>Termination Reason</mat-label>
+        <textarea  formControlName="termination_reason" matInput #termination_reason placeholder="Termination Reason"
+                   maxlength="150" rows="2">
+        </textarea>
+        <mat-hint align="end">{{termination_reason.value.length}} / 150</mat-hint>
+        <mat-error align="start" *ngIf="formErrors?.termination_reason" class="form__error">{{ formErrors.termination_reason }}</mat-error>
+    </mat-form-field>
+
+    <ng-container *ngIf="formError$ | async">
+       <div class="alert alert-danger"> {{terminationError$ | async}} </div>
+    </ng-container>
+
+</mat-dialog-content>
+
+<div class="d-flex justify-content-center spinner-container" *ngIf="loader">
+    <mat-progress-bar
+            color="green"
+            mode="query"
+            value=50
+            bufferValue=75>
+    </mat-progress-bar>
+</div>
+
+<mat-dialog-actions align="center">
+    <button mat-button class="mr-2" color="accent" [mat-dialog-close]="true" (click)="close()">Cancel</button>
+    <button mat-raised-button  color="warn" (click)="terminate()" [disabled]="!form.valid || loader || (formError$ | async)">Terminate Lease</button>
+</mat-dialog-actions>

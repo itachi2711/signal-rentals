@@ -1,0 +1,189 @@
+<h5 mat-dialog-title>Unit Details
+    <ng-container *ngIf="formError$ | async">
+        <mat-icon color="warn">error_outline</mat-icon>
+    </ng-container>
+</h5>
+
+<form [formGroup]="form">
+
+   <!-- [formGroup]="form"  (ngSubmit)="create()"-->
+
+<div class="row" style="margin-bottom: 20px">
+    <div class="col-md-12">
+        <mat-button-toggle-group formControlName='unit_mode' #group="matButtonToggleGroup"
+                                 (change)="onToggleChange(group.value)">
+            <mat-button-toggle value="residential" aria-label="Text align left">
+                <mat-icon>home</mat-icon>
+                <span>Residential</span>
+            </mat-button-toggle>
+            <mat-button-toggle value="commercial" aria-label="Text align right">
+                <mat-icon>business</mat-icon>
+                <span>Commercial</span>
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    <!--<div class="example-selected-value">Selected value: {{group.value}}</div>-->
+</div>
+
+<mat-dialog-content class="mat-dialog-data">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Unit Name</mat-label>
+                <input matInput formControlName="unit_name" placeholder="Unit Name">
+                <mat-error align="start" *ngIf="formErrors?.unit_name" class="form__error">{{ formErrors.unit_name }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label> Unit Floor</mat-label>
+                <input  matInput type="number" formControlName="unit_floor" placeholder="Unit Floor">
+                <mat-error align="start" *ngIf="formErrors?.unit_floor" class="form__error">{{ formErrors.unit_floor }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Rent Amount</mat-label>
+                <input matInput type="number" min="0" formControlName="rent_amount" placeholder="Rent Amount">
+                <mat-error align="start" *ngIf="formErrors?.rent_amount" class="form__error">{{ formErrors.rent_amount }}</mat-error>
+            </mat-form-field>
+        </div>
+
+      <!--  <div class="col-sm-6">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Billing Frequency *</mat-label>
+                <mat-select placeholder="Billing Frequency *" formControlName="billing_frequency">
+                    <mat-option *ngFor="let billingFrequency of billingFrequencies" [value]="billingFrequency.key">
+                        {{billingFrequency.value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="start" *ngIf="formErrors?.billing_frequency" class="form__error">{{ formErrors.billing_frequency }}</mat-error>
+            </mat-form-field>
+        </div>-->
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Unit Type *</mat-label>
+                <mat-select placeholder="Unit Type *" formControlName="unit_type_id">
+                    <mat-option *ngFor="let unitType of unitTypes$ | async" [value]="unitType.id">
+                        {{unitType.unit_type_display_name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="start" *ngIf="formErrors?.unit_type_id" class="form__error">{{ formErrors.unit_type_id }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="selectedUnitType=='residential'">
+
+        <div class="col-sm-6">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Bed Rooms</mat-label>
+                <input matInput type="number" min="0" formControlName="bed_rooms" placeholder="Bed Rooms">
+                <mat-error align="start" *ngIf="formErrors?.bed_rooms" class="form__error">{{ formErrors.bed_rooms }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Bath Rooms</mat-label>
+                <input matInput type="number" min="0" formControlName="bath_rooms" placeholder="Bath Rooms">
+                <mat-error align="start" *ngIf="formErrors?.bath_rooms" class="form__error">{{ formErrors.bath_rooms }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Total Rooms</mat-label>
+                <input matInput type="number" min="0" formControlName="total_rooms" placeholder="Total Rooms">
+                <mat-error align="start" *ngIf="formErrors?.total_rooms" class="form__error">{{ formErrors.total_rooms }}</mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Square Foot</mat-label>
+                <input matInput type="number" min="0" formControlName="square_foot" placeholder="Square Foot">
+                <mat-error align="start" *ngIf="formErrors?.square_foot" class="form__error">{{ formErrors.square_foot }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+  <!--  <div class="row">
+        <div class="col-sm-12" [@.disabled]="disableAnimation">
+
+            <mat-accordion>
+                <mat-expansion-panel [expanded]="false">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Rent Includes
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div formArrayName="utilityFields">
+                        <mat-error align="start" *ngIf="formErrors?.utilityFields" class="form__error">{{ formErrors.utilityFields }}</mat-error>
+
+                        <div class="row dialog-row">
+                            <div *ngFor="let item of itemsUtilities.controls; index as i" class="col-md-6 col-lg-6">
+                                <mat-checkbox [formControlName]="i">
+                                    {{optionsUtility[i].label}}
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel (opened)="panelOpenState = true"
+                                     (closed)="panelOpenState = false">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Amenities
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div formArrayName="amenityFields">
+                        <mat-error align="start" *ngIf="formErrors?.amenityFields" class="form__error">{{ formErrors.amenityFields }}</mat-error>
+
+                        <div class="row dialog-row">
+                            <div *ngFor="let item of itemsAmenities.controls; index as i" class="col-md-6 col-lg-6">
+                                <mat-checkbox [formControlName]="i">
+                                    {{optionsAmenity[i].label}}
+                                </mat-checkbox>
+                            </div>
+                        </div>
+                    </div>
+
+                </mat-expansion-panel>
+            </mat-accordion>
+
+        </div>
+    </div>-->
+
+
+</mat-dialog-content>
+
+<div class="d-flex justify-content-center spinner-container" *ngIf="loader">
+    <mat-progress-bar
+            color="primary"
+            mode="query"
+            value=50
+            bufferValue=75>
+    </mat-progress-bar>
+</div>
+
+<mat-dialog-actions align="center">
+    <button [disabled]="loader" mat-button class="mr-2" color="primary" [mat-dialog-close]="true" (click)="close()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="closeDialog(form.value)" [disabled]="!form.valid || loader">
+        Continue
+        <mat-icon color="material-icons">arrow_right</mat-icon>
+    </button>
+</mat-dialog-actions>
+</form>

@@ -1,0 +1,102 @@
+<div class="row">
+    <div class="col-md-12">
+
+
+                <mat-accordion>
+                    <mat-expansion-panel [expanded]="true">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Email Config
+                            </mat-panel-title>
+                        </mat-expansion-panel-header>
+
+                        <form [formGroup] = "form">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="full-width" color="primary" appearance="outline">
+                                        <mat-label>Mail Driver</mat-label>
+                                        <input matInput placeholder="Mail Driver" formControlName="driver">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="full-width" color="primary" appearance="outline">
+                                        <mat-label>Mail Host</mat-label>
+                                        <input matInput placeholder="Mail Host" formControlName="host">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="full-width" color="primary" appearance="outline">
+                                        <mat-label>Mail Username</mat-label>
+                                        <input matInput placeholder="Mail Username" formControlName="username">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="full-width" color="primary" appearance="outline">
+                                        <mat-label>Mail Password</mat-label>
+                                        <input matInput placeholder="Mail Password" formControlName="password">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="full-width" color="primary" appearance="outline">
+                                        <mat-label>Mail Port</mat-label>
+                                        <input matInput placeholder="Mail Port" formControlName="port">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="full-width" color="primary" appearance="outline">
+                                        <mat-label>Mail From Address</mat-label>
+                                        <input matInput placeholder="Mail From Address" formControlName="from_address">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <mat-form-field class="full-width" color="primary" appearance="outline">
+                                        <mat-label>Mail From Name</mat-label>
+                                        <input matInput placeholder="Mail From Name" formControlName="from_name">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <div class="divider divider-md"></div>
+
+                            <div class="d-flex justify-content-center spinner-container" *ngIf="loader">
+                                <mat-progress-bar
+                                        color="green"
+                                        mode="query"
+                                        value=50
+                                        bufferValue=75>
+                                </mat-progress-bar>
+                            </div>
+
+                            <div>
+                                <button mat-raised-button type="submit" class="btn pull-right" color="accent" (click)="update()" [disabled]="!form.valid || loader">Update Settings</button>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </form>
+
+
+                    </mat-expansion-panel>
+                </mat-accordion>
+
+
+
+    </div>
+
+</div>

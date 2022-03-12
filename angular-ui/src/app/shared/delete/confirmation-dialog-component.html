@@ -1,0 +1,9 @@
+<mat-dialog-content>
+
+   <span mat-dialog-title>{{title}}</span>
+
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <button class="mat-raised-button mat-primary  mr-2" (click)="dialogRef.close(true)">Confirm</button>
+    <button class="mat-raised-button" (click)="dialogRef.close(false)">Close</button>
+</mat-dialog-actions>

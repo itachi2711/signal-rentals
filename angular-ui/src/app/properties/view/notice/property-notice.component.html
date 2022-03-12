@@ -1,0 +1,56 @@
+<div class="table-responsive">
+
+    <mat-table #table [dataSource]="vacateDataSource" matSort matSortActive="vacating_date"
+               matSortDirection="desc" matSortDisableClear>
+        <ng-container matColumnDef="vacating_date">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Vacating Date </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-flat-button routerLink="/notices/{{row?.id}}" (click)="onSelectedNotice(row)">
+                    <span class="link">{{row.vacating_date_display}}</span>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="tenant_id">
+            <mat-header-cell *matHeaderCellDef> Tenant </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.tenant?.first_name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="lease">
+            <mat-header-cell *matHeaderCellDef> Lease </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.lease?.lease_number}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="unit">
+            <mat-header-cell *matHeaderCellDef> Unit </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+
+                <ng-container *ngFor="let unit of row?.lease?.units; let i = index;">
+                    <div>{{unit?.unit_name}}</div>
+                </ng-container>
+
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"> </mat-row>
+
+    </mat-table>
+    <span *ngIf="meta?.total===0">No Notice Data.</span>
+
+    <div class="d-flex justify-content-center spinner-container" *ngIf="(vacateDataSource?.loading$ | async) || loader">
+        <mat-progress-bar
+                color="green"
+                mode="query"
+                value=50
+                bufferValue=75>
+        </mat-progress-bar>
+    </div>
+
+    <mat-paginator #pagination
+                   [length]="meta?.total"
+                   [pageIndex]="pageIndex"
+                   [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+    </mat-paginator>
+
+</div>

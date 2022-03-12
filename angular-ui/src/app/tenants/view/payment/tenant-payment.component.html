@@ -1,0 +1,61 @@
+<div class="table-responsive">
+
+    <mat-table #table [dataSource]="paymentDataSource" matSort matSortActive="payment_date" matSortDirection="desc" matSortDisableClear>
+
+        <ng-container matColumnDef="amount">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Amount </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.amount}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="payment_date">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Payment Date </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.payment_date}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="lease_id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Lease </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row?.lease?.lease_number}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="property_id">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Property </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row?.property?.property_name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="receipt_number">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Receipt Number </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.receipt_number}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="payment_status">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+                <button mat-button class="{{row.status?.status_class}}">
+                    <mat-icon>{{row.status?.status_icon}}</mat-icon>
+                    {{row.status?.status_text}}
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"> </mat-row>
+
+    </mat-table>
+    <span *ngIf="meta?.total===0">No Payments Data</span>
+
+    <div class="d-flex justify-content-center spinner-container" *ngIf="(paymentDataSource?.loading$ | async) || loader">
+        <mat-progress-bar
+                color="green"
+                mode="query"
+                value=50
+                bufferValue=75>
+        </mat-progress-bar>
+    </div>
+
+    <mat-paginator #pagination
+                   [length]="meta?.total"
+                   [pageIndex]="pageIndex"
+                   [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+    </mat-paginator>
+
+</div>

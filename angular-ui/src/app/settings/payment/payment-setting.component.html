@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header card-header-info">
+                <p class="card-category">Payment Settings</p>
+            </div>
+            <div class="card-body">
+                <nav mat-tab-nav-bar>
+                    <a mat-tab-link routerLinkActive #user="routerLinkActive" [active]="user.isActive"
+                       [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/settings/payments']">
+                        <span class="nav-text"> Payment Method</span></a>
+                </nav>
+                <router-outlet></router-outlet>
+            </div>
+        </div>
+    </div>
+</div>

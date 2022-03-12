@@ -1,0 +1,111 @@
+<h5 mat-dialog-title *ngIf="isAdd">New User
+    <ng-container *ngIf="formError$ | async">
+        <mat-icon color="warn">error_outline</mat-icon>
+    </ng-container>
+</h5>
+<h5 mat-dialog-title *ngIf="!isAdd">Edit User
+    <ng-container *ngIf="formError$ | async">
+        <mat-icon color="warn">error_outline</mat-icon>
+    </ng-container>
+</h5>
+
+<mat-dialog-content class="mat-dialog-data" [formGroup]="form">
+
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Role</mat-label>
+                <mat-select placeholder="Role" formControlName="role_id">
+                    <mat-option *ngFor="let role of roles" [value]="role.id">
+                        {{role.name}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="start" *ngIf="formErrors?.role_id" class="form__error">{{ formErrors.role_id }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="first_name" placeholder="First Name">
+                <mat-error align="start" *ngIf="formErrors?.first_name" class="form__error">{{ formErrors.first_name }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Middle Name</mat-label>
+                <input matInput formControlName="middle_name" placeholder="Middle Name">
+                <mat-error align="start" *ngIf="formErrors?.middle_name" class="form__error">{{ formErrors.middle_name }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="last_name" placeholder="Last Name">
+                <mat-error align="start" *ngIf="formErrors?.last_name" class="form__error">{{ formErrors.last_name }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" placeholder="Email">
+                <mat-error align="start" *ngIf="formErrors?.email" class="form__error">{{ formErrors.email }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!isAdd">
+        <div class="col-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Current Password</mat-label>
+                <input matInput formControlName="current_password" type="password" placeholder="Current Password">
+                <mat-error align="start" *ngIf="formErrors?.current_password" class="form__error">{{ formErrors.current_password }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput formControlName="password" type="password" placeholder="Password">
+                <mat-error align="start" *ngIf="formErrors?.password" class="form__error">{{ formErrors.password }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                <input matInput formControlName="password_confirmation" type="password" placeholder="Confirm Password">
+                <mat-error align="start" *ngIf="formErrors?.password_confirmation" class="form__error">{{ formErrors.password_confirmation }}</mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+</mat-dialog-content>
+
+<div class="d-flex justify-content-center spinner-container" *ngIf="loader">
+    <mat-progress-bar
+            color="green"
+            mode="query"
+            value=50
+            bufferValue=75>
+    </mat-progress-bar>
+</div>
+
+<mat-dialog-actions align="center">
+    <button [disabled]="loader" mat-button class="mr-2" color="accent" [mat-dialog-close]="true" (click)="close()">Cancel</button>
+    <button mat-raised-button  color="primary" (click)="createOrUpdate()" [disabled]="!form.valid || loader">Save</button>
+</mat-dialog-actions>

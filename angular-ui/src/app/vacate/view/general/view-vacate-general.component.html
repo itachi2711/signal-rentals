@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="card-title">Vacating Date :
+                            <span class="card-category">{{(noticeData$|async)?.vacating_date_display}}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-sm-4">
+                    <p class="card-title">Lease :
+                        <span class="card-category">{{(noticeData$|async)?.lease?.lease_number}}</span>
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <p class="card-title">Property :
+                        <span class="card-category">
+                            {{(noticeData$|async)?.property?.property_name}}
+                            ({{(noticeData$|async)?.property?.property_code}}) -  ({{(noticeData$|async)?.property?.location}})
+                        </span>
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <p class="card-title">Unit :
+                        <span class="card-category">{{(noticeData$|async)?.lease?.unit_names}}</span>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="card-title">Vacating Reason</p>
+                    <p class="card-category">{{(noticeData$|async)?.vacating_reason}}</p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

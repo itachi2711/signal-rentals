@@ -1,0 +1,166 @@
+<div class="main-content">
+    <ng-template #no_data>
+        <div class="not-found">
+           <mat-icon>error</mat-icon> Not Found
+        </div>
+    </ng-template>
+
+    <div class="container-fluid" *ngIf="invoiceData$ | async as invoice; else no_data">
+        <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title">{{invoice.invoice_number}}</h4>
+                            <p class="card-category"></p>
+                        </div>
+                        <div class="card-body">
+                            <iframe *ngIf="pdfSrc" width="500" height="600" style="width: 100%"
+                                    [src]="pdfSrc" type="application/pdf">
+                            </iframe>
+
+                            <div class="d-flex justify-content-center spinner-container" *ngIf="loader">
+                                downloading invoice ...
+                            </div>
+                            <div class="d-flex justify-content-center spinner-container"
+                                 *ngIf="loader">
+                                <mat-progress-bar
+                                        color="primary"
+                                        mode="query"
+                                        value=50
+                                        bufferValue=75>
+                                </mat-progress-bar>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header card-header-info">
+                                <h4 class="card-title">Summary</h4>
+                                <p class="card-category"> Invoice #: {{invoice?.invoice_number}}</p>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="card-category text-gray"> Property </div>
+                                        {{invoice?.lease?.property?.property_name}},  {{invoice?.lease?.property?.location}}
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card-category text-gray"> Lease </div>
+                                        {{invoice?.lease?.lease_number}}
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card-category text-gray"> Unit </div>
+                                        <div>{{invoice?.lease?.unit_names}}</div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="card-category text-gray"> Tenant </div>
+                                        <ng-container *ngFor="let tenant of invoice?.lease?.tenants; let i = index;">
+                                            <div class="row col-12">
+                                                    {{tenant?.first_name}} {{tenant?.middle_name}} {{tenant?.last_name}}
+                                                    <span class="ml-5" *ngIf="tenant?.contact_phone">
+                                                         <mat-icon inline=true>phone</mat-icon>
+                                                        {{tenant?.contact_phone}}
+                                                    </span>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="card-category">Total</div>
+                                        {{invoice?.summary?.invoice_amount}}
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card-category text-gray">Paid</div>
+                                        {{invoice?.summary?.amount_paid}}
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="card-category text-gray">Amount Due</div>
+                                        {{invoice?.summary?.amount_due}}
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title">Payment History</h4>
+                            <p class="card-category">Total Paid: {{invoice?.payment_summary?.transactions_total}}</p>
+                        </div>
+                        <div class="card-body">
+                            <mat-accordion>
+                                <ng-container *ngFor="let receipts of invoice?.payment_summary?.receipt_items | keyvalue; let i = index;">
+                                    <mat-expansion-panel>
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                {{receipts?.key}}
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                               <span class="mr-2 text-muted">
+                                                   {{receipts?.value?.summary?.amount}}
+                                               </span>
+                                                <span class="text-right">
+                                                    <i class="text-info">{{receipts?.value?.summary?.payment_date_ago}}</i>
+                                                </span>
+
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <div class="card-body">
+                                            <p> Payment Method: {{receipts?.value?.summary?.payment_method_name}}</p>
+                                            <p> Receipt Number: {{receipts?.value?.summary?.receipt_number}}</p>
+                                            <p> Payment Date: {{receipts?.value?.summary?.payment_date}}</p>
+                                            <p> Payment Amount: {{receipts?.value?.summary?.amount}}</p>
+                                            <p> Ref: {{receipts?.value?.summary?.payment_reference}}</p>
+                                        </div>
+
+                                        <table class="table table-striped table-dark">
+
+
+                                            <ng-container *ngFor="let item of receipts?.value?.items; let i = index;">
+                                                <tr>
+                                                    <td>{{item.item_name}}</td>
+                                                    <td class="text-right">{{item?.amount_paid}}</td>
+                                               <!-- <div class="card-category text-gray"></div>
+                                                <p> Amount: </p>-->
+                                                </tr>
+                                            </ng-container>
+
+                                        </table>
+
+                                    </mat-expansion-panel>
+                                </ng-container>
+                            </mat-accordion>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header card-header-info">
+                            <h4 class="card-title">Waiver History</h4>
+                            <p class="card-category"> Waivers: {{invoice?.waiver_summary?.transactions_count}}</p>
+                            <p class="card-category"> Total Amount: {{invoice?.waiver_summary?.transactions_total}}</p>
+                        </div>
+                        <div class="card-body"></div>
+                    </div>
+
+
+                    <ng-container *ngIf="invoice?.summary?.amount_due_number > 0">
+                    <ng-container *robiPermission="['waive-invoice']">
+                        <div class="card" *ngIf="isAdmin$ | async">
+                            <button mat-raised-button  color="warn" (click)="waiveInvoice(invoice)">
+                                Waive Invoice ({{invoice?.invoice_number}})
+                            </button>
+                        </div>
+                    </ng-container>
+                    </ng-container>
+                </div>
+        </div>
+    </div>
+</div>

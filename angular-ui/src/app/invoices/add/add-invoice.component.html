@@ -1,0 +1,59 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info">
+                        <h4 class="card-title">{{ 'robi.invoices.title.new' | translate }}</h4>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-body">
+
+                        <form [formGroup]="utilitySummaryFormGroup">
+                            <div class="row">
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <mat-form-field color="primary" appearance="outline">
+                                        <mat-label>Lease *</mat-label>
+                                        <mat-select formControlName="property_id" #propertySelect (selectionChange)="onPropertyItemChange(propertySelect.value)">
+                                            <mat-option>
+                                                <ngx-mat-select-search [formControl]="propertyServerSideFilteringCtrl" [searching]="searching"
+                                                                       placeholderLabel="Find Property..."
+                                                                       noEntriesFoundLabel="No matching property found ...">
+                                                </ngx-mat-select-search>
+                                            </mat-option>
+                                            <mat-option *ngFor="let property of filteredServerSideProperties | async" [value]="property.id">
+                                                {{property.property_name}} {{property.location}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error align="start" *ngIf="formErrors?.property_id" class="form__error">{{ formErrors.property_id }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                    <mat-form-field class="full-width" color="primary" appearance="outline">
+                                        <mat-label>Month / Year *</mat-label>
+                                        <mat-select placeholder="Utility *" formControlName="utility_id">
+                                            <mat-option *ngFor="let utility of utilities$ | async" [value]="utility.id">
+                                                {{utility.utility_display_name}}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error align="start" *ngIf="formErrors?.utility_id" class="form__error">{{ formErrors.utility_id }}</mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                            <div class="float-right">
+                                <mat-checkbox class="mr-4 mt-2">Send email to tenant</mat-checkbox>
+                                <button class="mat-raised-button mat-primary float-right" (click)="create()"
+                                        [disabled]="!utilitySummaryFormGroup.valid || loader">
+                                    Generate Invoice
+                                </button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

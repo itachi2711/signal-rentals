@@ -1,0 +1,196 @@
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                        <mat-label>Lease Number</mat-label>
+                            <input matInput placeholder="Lease Number" disabled value="{{(lease$|async)?.lease_number}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Property Name (Code)</mat-label>
+                            <input matInput placeholder="Property Name (Code)" disabled
+                                   value="{{(lease$|async)?.property?.property_name}}
+                                   ({{(lease$|async)?.property?.property_code}})">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Unit</mat-label>
+                            <input matInput placeholder="Unit" disabled value="{{(lease$|async)?.unit_names}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Lease Type</mat-label>
+                            <input matInput placeholder="Lease Type" disabled value="{{(lease$|async)?.lease_type?.lease_type_display_name}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Start Date</mat-label>
+                            <input matInput placeholder="Start Date" disabled value="{{(lease$|async)?.start_date}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Due On</mat-label>
+                            <input matInput placeholder="Due On" disabled value="{{(lease$|async)?.due_on}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Rent Amount</mat-label>
+                            <input matInput placeholder="Rent Amount" disabled value="{{(lease$|async)?.rent_amount}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Rent Deposit</mat-label>
+                            <input matInput placeholder="Rent Deposit" disabled value="{{(lease$|async)?.rent_deposit}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Utility Deposits
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                               <span class="mr-2 text-muted"></span>
+                                                <span class="text-right"></span>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Utility</th>
+                                            <th>Deposit Amount</th>
+                                        </tr>
+                                        <ng-container *ngFor="let utilityDeposit of (lease$|async)?.utility_deposits; let i = index;">
+                                            <tr>
+                                                <td>{{utilityDeposit.utility_display_name}}</td>
+                                                <td>{{utilityDeposit?.pivot?.deposit_amount}}</td>
+                                            </tr>
+                                        </ng-container>
+                                    </table>
+                                </div>
+                            </mat-expansion-panel>
+                    </mat-accordion>
+
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Utility Charges
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        <span class="mr-2 text-muted"></span>
+                                        <span class="text-right"></span>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Utility</th>
+                                            <th>Unit Cost</th>
+                                            <th>Base Cost</th>
+                                        </tr>
+                                        <ng-container *ngFor="let utilityCharge of (lease$|async)?.utility_charges; let i = index;">
+                                            <tr>
+                                                <td>{{utilityCharge.utility_display_name}}</td>
+                                                <td>{{utilityCharge?.pivot?.utility_unit_cost}}</td>
+                                                <td>{{utilityCharge?.pivot?.utility_base_fee}}</td>
+                                            </tr>
+                                        </ng-container>
+                                    </table>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Extra Charges
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        <span class="mr-2 text-muted"></span>
+                                        <span class="text-right"></span>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Charge</th>
+                                            <th>Frequency</th>
+                                            <th>Value</th>
+                                            <th>Type</th>
+                                        </tr>
+                                        <ng-container *ngFor="let extraCharge of (lease$|async)?.extra_charges; let i = index;">
+                                            <tr>
+                                                <td>{{extraCharge.extra_charge_display_name}}</td>
+                                                <td>{{extraCharge?.pivot?.extra_charge_frequency}}</td>
+                                                <td>{{extraCharge?.pivot?.extra_charge_value}}</td>
+                                                <td>{{extraCharge?.pivot?.extra_charge_type}}</td>
+                                            </tr>
+                                        </ng-container>
+                                    </table>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+
+                        <mat-accordion>
+                            <mat-expansion-panel>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        Late Fees
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        <span class="mr-2 text-muted"></span>
+                                        <span class="text-right"></span>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <div class="card-body">
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Late Fee</th>
+                                            <th>Grace Period (Days)</th>
+                                            <th>Frequency</th>
+                                            <th>Value</th>
+                                            <th>Type</th>
+                                        </tr>
+                                        <ng-container *ngFor="let lateFee of (lease$|async)?.late_fees; let i = index;">
+                                            <tr>
+                                                <td>{{lateFee.late_fee_display_name}}</td>
+                                                <td>{{lateFee?.pivot?.grace_period}}</td>
+                                                <td>{{lateFee?.pivot?.late_fee_frequency}}</td>
+                                                <td>{{lateFee?.pivot?.late_fee_value}}</td>
+                                                <td>{{lateFee?.pivot?.late_fee_type}}</td>
+                                            </tr>
+                                        </ng-container>
+                                    </table>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

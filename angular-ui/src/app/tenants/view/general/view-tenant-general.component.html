@@ -1,0 +1,130 @@
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Tenant Type</mat-label>
+                            <input matInput placeholder="First Name" disabled
+                                   value="{{(tenantData$|async)?.tenant_type?.tenant_type_display_name}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>First Name</mat-label>
+                            <input matInput placeholder="First Name" disabled value="{{(tenantData$|async)?.first_name}}">
+                        </mat-form-field>
+                    </div>
+                <div class="col-sm-6">
+                    <mat-form-field class="full-width" color="primary" appearance="legacy">
+                        <mat-label>Middle Name</mat-label>
+                        <input matInput placeholder="Middle Name" disabled value="{{(tenantData$|async)?.middle_name}}">
+                    </mat-form-field>
+                </div>
+            </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Last Name</mat-label>
+                            <input matInput placeholder="Last Name" disabled value="{{(tenantData$|async)?.last_name}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Gender</mat-label>
+                            <input matInput placeholder="Gender" disabled value="{{(tenantData$|async)?.gender}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Date of Birth</mat-label>
+                            <input matInput placeholder="Date of Birth" disabled value="{{(tenantData$|async)?.date_of_birth}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>National ID / Passport Number</mat-label>
+                            <input matInput placeholder="National ID / Passport Number" disabled value="{{(tenantData$|async)?.id_number}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Marital Status</mat-label>
+                            <input matInput placeholder="Marital Status" disabled value="{{(tenantData$|async)?.marital_status}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Nationality</mat-label>
+                            <input matInput placeholder="Nationality" disabled value="{{(tenantData$|async)?.nationality}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Phone</mat-label>
+                            <input matInput placeholder="Phone" disabled value="{{(tenantData$|async)?.phone}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Email</mat-label>
+                            <input matInput placeholder="Email" disabled value="{{(tenantData$|async)?.email}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>County</mat-label>
+                            <input matInput placeholder="County" disabled value="{{(tenantData$|async)?.county}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>City</mat-label>
+                            <input matInput placeholder="City" disabled value="{{(tenantData$|async)?.city}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Postal Code</mat-label>
+                            <input matInput placeholder="Postal Code" disabled value="{{(tenantData$|async)?.postal_code}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-6">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Postal Address</mat-label>
+                            <input matInput placeholder="Postal Address" disabled value="{{(tenantData$|async)?.postal_address}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Residential Address</mat-label>
+                            <input matInput placeholder="Residential Address" disabled value="{{(tenantData$|async)?.residential_address}}">
+                        </mat-form-field>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

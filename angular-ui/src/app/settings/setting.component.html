@@ -1,0 +1,35 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header card-header-info">
+                <p class="card-category">
+                    <i class="material-icons color-info">settings</i> {{ 'robi.settings.title' | translate }}
+                </p>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-2">
+
+                        <ul class="nav flex-column nav-pills">
+                            <ng-container *ngFor="let menuItem of settingMenuItems">
+                                <li class="nav-item">
+                                    <a routerLinkActive="active" [routerLinkActiveOptions]="{exact: menuItem.activeOption}" class="nav-link" [routerLink]="[menuItem.path]">
+                                        <span class="nav-text"> {{menuItem.title}} </span>
+                                    </a>
+                                </li>
+                            </ng-container>
+                        </ul>
+
+                    </div>
+                    <div class="col-10">
+                        <router-outlet></router-outlet>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,157 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-8">
+              <div class="card">
+                  <div class="card-header card-header-info" color="accent">
+                      <h4 class="card-title">Edit Profile</h4>
+                      <p class="card-category">Complete your profile</p>
+                  </div>
+                  <div class="card-body" [formGroup]="form"  (ngSubmit)="update()">
+
+                      <div class="row">
+                          <div class="col-6">
+                              <mat-form-field class="full-width" color="primary" appearance="outline">
+                                  <mat-label>First Name</mat-label>
+                                  <input matInput formControlName="first_name" placeholder="First Name">
+                                  <mat-error align="start" *ngIf="formErrors?.first_name" class="form__error">{{ formErrors.first_name }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-6">
+                              <mat-form-field class="full-width" color="primary" appearance="outline">
+                                  <mat-label>Middle Name</mat-label>
+                                  <input matInput formControlName="middle_name" placeholder="Middle Name">
+                                  <mat-error align="start" *ngIf="formErrors?.middle_name" class="form__error">{{ formErrors.middle_name }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-6">
+                              <mat-form-field class="full-width" color="primary" appearance="outline">
+                                  <mat-label>Last Name</mat-label>
+                                  <input matInput formControlName="last_name" placeholder="Last Name">
+                                  <mat-error align="start" *ngIf="formErrors?.last_name" class="form__error">{{ formErrors.last_name }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-6">
+                              <mat-form-field class="full-width" color="primary" appearance="outline">
+                                  <mat-label>Email</mat-label>
+                                  <input matInput formControlName="email" placeholder="Email">
+                                  <mat-error align="start" *ngIf="formErrors?.email" class="form__error">{{ formErrors.email }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-6">
+                              <mat-form-field class="full-width" color="primary" appearance="outline">
+                                  <mat-label>Phone</mat-label>
+                                  <input matInput formControlName="phone" placeholder="Phone">
+                                  <mat-error align="start" *ngIf="formErrors?.phone" class="form__error">{{ formErrors.phone }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-6">
+                              <mat-form-field class="full-width" color="primary" appearance="outline">
+                                  <mat-label>Country</mat-label>
+                                  <input matInput formControlName="country" placeholder="Country">
+                                  <mat-error align="start" *ngIf="formErrors?.country" class="form__error">{{ formErrors.country }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                      </div>
+
+                      <div class="row">
+					   <div class="col-6">
+                                  <mat-form-field class="full-width" color="primary" appearance="outline">
+                                      <mat-label>City</mat-label>
+                                      <input matInput formControlName="city" placeholder="City">
+                                      <mat-error align="start" *ngIf="formErrors?.city" class="form__error">{{ formErrors.city }}</mat-error>
+                                  </mat-form-field>
+                              </div>
+                          <div class="col-6">
+                              <mat-form-field class="full-width" color="primary" appearance="outline">
+                                  <mat-label>State</mat-label>
+                                  <input matInput formControlName="state" placeholder="State">
+                                  <mat-error align="start" *ngIf="formErrors?.state" class="form__error">{{ formErrors.state }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-12">
+                              <mat-form-field class="full-width" color="primary" appearance="outline">
+                                  <mat-label>Physical Address</mat-label>
+                                  <input matInput formControlName="physical_address" placeholder="Physical Address">
+                                  <mat-error align="start" *ngIf="formErrors?.physical_address" class="form__error">{{ formErrors.physical_address }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-12">
+                              <mat-form-field class="full-width" color="primary" appearance="outline">
+                                  <mat-label>Postal Address</mat-label>
+                                  <input matInput formControlName="postal_address" placeholder="Postal Address">
+                                  <mat-error align="start" *ngIf="formErrors?.postal_address" class="form__error">{{ formErrors.postal_address }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-12">
+                              <mat-form-field class="full-width" color="primary" appearance="outline">
+                                  <mat-label>Postal Code</mat-label>
+                                  <input matInput formControlName="postal_code" placeholder="Postal Code">
+                                  <mat-error align="start" *ngIf="formErrors?.postal_code" class="form__error">{{ formErrors.postal_code }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                      </div>
+
+                      <div class="row">
+                          <div class="col-md-4">
+                              <mat-form-field class="full-width" color="primary" appearance="outline">
+                                  <mat-label>Current Password</mat-label>
+                                  <input matInput formControlName="current_password" type="password" placeholder="Current Password">
+                                  <mat-error align="start" *ngIf="formErrors?.current_password" class="form__error">{{ formErrors.current_password }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-4">
+                              <mat-form-field class="full-width" color="primary" appearance="outline">
+                                  <mat-label>New Password</mat-label>
+                                  <input matInput formControlName="password" type="password" placeholder="New Password">
+                                  <mat-error align="start" *ngIf="formErrors?.password" class="form__error">{{ formErrors.password }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-4">
+                              <mat-form-field class="full-width" color="primary" appearance="outline">
+                                  <mat-label>Confirm New Password</mat-label>
+                                  <input matInput formControlName="password_confirmation" type="password" placeholder="Confirm New Password">
+                                  <mat-error align="start" *ngIf="formErrors?.password_confirmation" class="form__error">{{ formErrors.password_confirmation }}</mat-error>
+                              </mat-form-field>
+                          </div>
+                      </div>
+
+                      <button class="btn mat-raised-button mat-primary pull-right" (click)="update()" [disabled]="!form.valid || loader">Update Profile</button>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+             <!-- <div class="card card-profile">
+                  <div class="card-avatar">
+                      <a href="javascript:void(0)">
+                          <img class="img" src="./assets/img/faces/marc.jpg" />
+                      </a>
+                  </div>
+                  <div class="card-body">
+                      <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                      <h4 class="card-title">Alec Thompson</h4>
+                      <p class="card-description">
+                          Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                      </p>
+                      <a href="javascript:void(0)" class="btn btn-danger btn-round">Follow</a>
+                  </div>
+              </div>-->
+          </div>
+      </div>
+  </div>
+</div>

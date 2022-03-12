@@ -1,0 +1,10 @@
+@use '~@angular/material' as mat;
+$robi-purple-primary: mat.define-palette(mat.$purple-palette, 700, 300, 900);
+$robi-purple-accent: mat.define-palette(mat.$cyan-palette, 400);
+$robi-purple-warn: mat.define-palette(mat.$red-palette, 500);
+
+$robi-purple-theme: mat.define-light-theme(
+                $robi-purple-primary,
+                $robi-purple-accent,
+                $robi-purple-warn
+);

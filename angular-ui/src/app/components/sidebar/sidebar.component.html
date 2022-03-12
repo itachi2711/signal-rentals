@@ -1,0 +1,66 @@
+<div class="logo">
+    <figure class="item simple-text top-space">
+        <figcaption class="caption"> {{companyName}} </figcaption>
+    </figure>
+</div>
+
+<div class="sidebar-wrapper">
+  <div *ngIf="isMobileMenu()">
+  </div>
+    <ul class="nav">
+        <!--{{isAgent$|async}}
+        {{scopes$|async|json}}-->
+
+        <ng-container *ngIf="isAgent$ | async">
+            <ng-container *ngFor="let menuItem of menuItemsAdmin">
+                <li routerLinkActive="active" *robiPermission = menuItem?.permission class="{{menuItem.class}} nav-item">
+                    <a class="nav-link" [routerLink]="[menuItem.path]">
+                        <i class="material-icons">{{menuItem.icon}}</i>
+                        <p> {{menuItem.title | translate}}</p>
+                    </a>
+                </li>
+
+                <!-- <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLinkActiveOptions]="{exact: true}" *robiPermission = menuItem?.permission class="{{menuItem.class}} nav-item">
+                     <a class="nav-link" [routerLink]="[menuItem.path]">
+                         <i class="material-icons">{{menuItem.icon}}</i>
+                         <p> {{menuItem.title | translate}}</p>
+                     </a>
+                 </li>-->
+            </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="isLandlord$ | async">
+            <ng-container *ngFor="let menuItem of menuItemsLandlord">
+                <li routerLinkActive="active" *robiPermission = menuItem?.permission class="{{menuItem.class}} nav-item">
+                    <a class="nav-link" [routerLink]="[menuItem.path]">
+                        <i class="material-icons">{{menuItem.icon}}</i>
+                        <p> {{menuItem.title | translate}}</p>
+                    </a>
+                </li>
+            </ng-container>
+        </ng-container>
+
+        <ng-container *ngIf="isTenant$ | async">
+            <ng-container *ngFor="let menuItem of menuItemsTenant">
+                <li routerLinkActive="active" *robiPermission = menuItem?.permission class="{{menuItem.class}} nav-item">
+                    <a class="nav-link" [routerLink]="[menuItem.path]">
+                        <i class="material-icons">{{menuItem.icon}}</i>
+                        <p> {{menuItem.title | translate}}</p>
+                    </a>
+                </li>
+            </ng-container>
+        </ng-container>
+
+        <mat-divider></mat-divider>
+        <li routerLinkActive="active" class="nav-item">
+            <a class="nav-link pointer" *ngIf="!loading" (click)="logout()">
+                <i class="material-icons">power_settings_new</i>
+                <p>Logout</p>
+            </a>
+            <a class="nav-link" *ngIf="loading">
+                <i class="material-icons">clear_all</i>
+                <p>clean up ...</p>
+            </a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,11 @@
+<div style="min-height: 5px">
+    <mat-progress-bar
+            class="loading-bar"
+            color="primary"
+            mode="query"
+            value=50
+            bufferValue=75
+            *ngIf="loading">
+    </mat-progress-bar>
+</div>
+<router-outlet></router-outlet>

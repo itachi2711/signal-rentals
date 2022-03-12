@@ -1,0 +1,37 @@
+<div class="table-responsive">
+
+    <mat-table #table [dataSource]="documentDataSource" matSort matSortActive="name"
+               matSortDirection="desc" matSortDisableClear>
+
+        <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Title </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.title}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="documentColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: documentColumns;"> </mat-row>
+
+    </mat-table>
+    <span *ngIf="meta?.total===0">No Lease Data.</span>
+
+    <div class="d-flex justify-content-center spinner-container" *ngIf="(documentDataSource?.loading$ | async) || loader">
+        <mat-progress-bar
+                color="green"
+                mode="query"
+                value=50
+                bufferValue=75>
+        </mat-progress-bar>
+    </div>
+
+    <mat-paginator #pagination
+                   [length]="meta?.total"
+                   [pageIndex]="pageIndex"
+                   [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+    </mat-paginator>
+
+</div>

@@ -1,0 +1,52 @@
+<h5 mat-dialog-title>Invoice Waiver  ({{ invoiceNumber }})
+    <ng-container *ngIf="formError$ | async">
+        <mat-icon color="warn">error_outline</mat-icon>
+    </ng-container>
+</h5>
+
+<mat-dialog-content class="mat-dialog-data" [formGroup]="form">
+    <mat-form-field  class="full-width" color="primary" appearance="outline">
+        <mat-label>Waiver Date *</mat-label>
+        <input matInput (click)="waiver_date.open()" [matDatepicker]="waiver_date" formControlName="waiver_date" placeholder="Waiver Date">
+        <mat-datepicker-toggle matSuffix [for]="waiver_date"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #waiver_date></mat-datepicker>
+        <mat-error align="start" *ngIf="formErrors?.waiver_date" class="form__error">{{ formErrors.waiver_date }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width" color="primary" appearance="outline">
+        <mat-label>Amount</mat-label>
+        <input matInput type="number" min="0" formControlName="amount" placeholder="Amount">
+        <!--<mat-hint class="text-success" align="start">
+            <span *ngIf="loanAccountBalance$ | async as balance"> Loan Balance: {{balance}}</span>
+        </mat-hint>-->
+        <mat-error align="start" *ngIf="formErrors?.amount" class="form__error">{{ formErrors.amount }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width" color="primary" appearance="outline">
+        <mat-label>Note</mat-label>
+        <textarea  formControlName="waiver_note" matInput #waiver_note placeholder="Note"
+                   maxlength="150" rows="2">
+        </textarea>
+        <mat-hint align="end">{{waiver_note.value.length}} / 150</mat-hint>
+        <mat-error align="start" *ngIf="formErrors?.waiver_note" class="form__error">{{ formErrors.waiver_note }}</mat-error>
+    </mat-form-field>
+
+    <ng-container *ngIf="formError$ | async">
+       <div class="alert alert-danger"> {{terminationError$ | async}} </div>
+    </ng-container>
+
+</mat-dialog-content>
+
+<div class="d-flex justify-content-center spinner-container" *ngIf="loader">
+    <mat-progress-bar
+            color="green"
+            mode="query"
+            value=50
+            bufferValue=75>
+    </mat-progress-bar>
+</div>
+
+<mat-dialog-actions align="center">
+    <button mat-button class="mr-2" color="accent" [mat-dialog-close]="true" (click)="close()">Cancel</button>
+    <button mat-raised-button  color="warn" (click)="create()" [disabled]="!form.valid || loader || (formError$ | async)">Add Waiver</button>
+</mat-dialog-actions>

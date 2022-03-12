@@ -1,0 +1,10 @@
+@use '~@angular/material' as mat;
+$robi-grey-primary: mat.define-palette(mat.$blue-grey-palette, 700, 300, 900);
+$robi-grey-accent: mat.define-palette(mat.$amber-palette, 400);
+$robi-grey-warn: mat.define-palette(mat.$red-palette, 500);
+
+$robi-grey-theme: mat.define-light-theme(
+                $robi-grey-primary,
+                $robi-grey-accent,
+                $robi-grey-warn
+);

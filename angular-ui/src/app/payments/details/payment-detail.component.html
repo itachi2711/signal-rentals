@@ -1,0 +1,96 @@
+<mat-dialog-content class="mat-dialog-data" style="min-width: 40%">
+
+    <div class="row">
+        <div class="col-12">
+            <mat-form-field class="full-width {{payment.status?.status_class}}" color="primary" appearance="outline">
+               <!-- <mat-label>Status</mat-label>-->
+                <input matInput placeholder="Status" disabled
+                       value=" {{payment.status?.status_text}}">
+                <span matPrefix><mat-icon>{{payment.status?.status_icon}}</mat-icon></span>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Amount</mat-label>
+                <input matInput placeholder="Amount" disabled
+                       value="{{payment?.amount}}">
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Paid On</mat-label>
+                <input matInput placeholder="Paid On" disabled
+                       value="{{payment?.payment_date}}">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-6">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Payment Method</mat-label>
+                <input matInput placeholder="Payment Method" disabled
+                       value="{{payment?.payment_method?.payment_method_display_name}}">
+            </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Tenant</mat-label>
+                <input matInput placeholder="Tenant" disabled
+                       value="{{payment?.tenant?.first_name}} {{payment?.tenant?.middle_name}} {{payment?.tenant?.last_name}}">
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+        <mat-form-field class="full-width" color="primary" appearance="outline">
+            <mat-label>Recorded By</mat-label>
+            <input matInput placeholder="Recorded By" disabled
+                   value="{{payment?.tenant?.first_name}}">
+        </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row"  *ngIf="payment?.notes">
+        <div class="col-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Notes</mat-label>
+                <textarea  matInput placeholder="Notes" disabled maxlength="150" rows="1" value="{{payment?.notes}}"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="payment?.is_cancelled">
+        <div class="col-12">
+            <mat-form-field color="primary" appearance="outline">
+                <mat-label>Cancelled By</mat-label>
+                <input matInput placeholder="Cancelled By" disabled value="{{payment?.cancel_user?.first_name}} {{payment?.cancel_user?.last_name}}">
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row" *ngIf="payment?.is_cancelled">
+        <div class="col-12">
+            <mat-form-field class="full-width" color="primary" appearance="outline">
+                <mat-label>Cancel Comments</mat-label>
+                <textarea  matInput placeholder="Cancel Comments" disabled maxlength="150" rows="1" value="{{payment?.cancel_notes}}"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="payment?.is_approved">
+        <div class="col-12">
+            <mat-form-field color="primary" appearance="outline">
+                <mat-label>Approved By</mat-label>
+                <input matInput placeholder="Approved By" disabled value="{{payment?.approve_user?.first_name}} {{payment?.approve_user?.last_name}}">
+            </mat-form-field>
+        </div>
+    </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="center" *ngIf="isStandAlone">
+    <button mat-button class="mat-raised-button" [mat-dialog-close]="true">Close</button>
+</mat-dialog-actions>

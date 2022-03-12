@@ -1,0 +1,42 @@
+mat-table {
+    min-width: 600px;
+}
+table tr:last-child {
+    font-weight: bold;
+}
+.mat-cell {
+    font-size: 12px;
+}
+.narration {
+    min-width: 200px;
+}
+.date {
+    min-width: 150px;
+}
+.header {
+    background-color: transparent;
+    padding: 0 5px;
+    height: 20px;
+}
+.fx-spacer {
+    flex: 1 1 auto;
+}
+.align-center{
+    text-align: center;
+}
+.small-font {
+    font-size: small;
+}
+.money-cell {
+    display:flex;
+    justify-content:flex-end;
+    /* border-left: thick solid rgba(0,0,0,.87);*/
+}
+/*mat-header-cell {
+    display:flex;
+    justify-content:flex-end;
+}
+mat-cell {
+    display:flex !important;
+    justify-content:flex-end!important;
+}*/

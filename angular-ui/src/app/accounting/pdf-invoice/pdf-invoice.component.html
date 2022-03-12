@@ -1,0 +1,20 @@
+<div class="d-flex justify-content-center spinner-container" *ngIf="loader">
+    downloading invoice ...
+</div>
+
+<iframe *ngIf="pdfSrc" width="500" height="600" style="width: 100%"
+        [src]="pdfSrc" type="application/pdf">
+</iframe>
+<div class="d-flex justify-content-center spinner-container"
+     *ngIf="loader">
+    <mat-progress-bar
+            color="primary"
+            mode="query"
+            value=50
+            bufferValue=75>
+    </mat-progress-bar>
+</div>
+
+<mat-dialog-actions align="center">
+    <button mat-button class="mat-raised-button button-separate" [mat-dialog-close]="true">Close</button>
+</mat-dialog-actions>

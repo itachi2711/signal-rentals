@@ -1,0 +1,49 @@
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <mat-form-field class="full-width" color="primary" appearance="legacy">
+                        <mat-label>Property Type</mat-label>
+                        <input matInput placeholder="Property Code" disabled value="{{(property$|async)?.property_type?.display_name}}">
+                    </mat-form-field>
+                </div>
+            </div>
+
+           <div class="row">
+                <div class="col-sm-6">
+                    <mat-form-field class="full-width" color="primary" appearance="legacy">
+                    <mat-label>Property Name</mat-label>
+                        <input matInput placeholder="Property Name" disabled value="{{(property$|async)?.property_name}}">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-6">
+                    <mat-form-field class="full-width" color="primary" appearance="legacy">
+                        <mat-label>Property Code</mat-label>
+                        <input matInput placeholder="Property Code" disabled value="{{(property$|async)?.property_code}}">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <mat-form-field class="full-width" color="primary" appearance="legacy">
+                        <mat-label>Location</mat-label>
+                        <input matInput placeholder="Location" disabled value="{{(property$|async)?.location}}">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-6">
+                    <mat-form-field class="full-width" color="primary" appearance="legacy">
+                        <mat-label>Address</mat-label>
+                        <input matInput placeholder="Address" disabled value="{{(property$|async)?.address_1}}">
+                    </mat-form-field>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </div>
+</div>

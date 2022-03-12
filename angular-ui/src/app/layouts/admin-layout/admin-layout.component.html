@@ -1,0 +1,11 @@
+<div [class]="'wrapper '+(theme$ | async)">
+    <div class="sidebar" data-color="danger" data-background-color="white"  color="primary">
+        <robi-sidebar></robi-sidebar>
+        <div class="sidebar-background"></div>
+    </div>
+    <div class="main-panel">
+        <robi-navbar></robi-navbar>
+        <router-outlet></router-outlet>
+        <robi-footer></robi-footer>
+    </div>
+</div>

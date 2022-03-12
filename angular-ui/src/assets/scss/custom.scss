@@ -1,0 +1,201 @@
+// robi theming
+@use '~@angular/material' as mat;
+@import '~@angular/material/theming';
+@include mat.core();
+
+@import '../../themes/default-theme';
+@import '../../themes/light-theme';
+@import '../../themes/black-theme';
+@import '../../themes/nature-theme';
+@import '../../themes/orange.theme';
+@import '../../themes/red.theme';
+@import '../../themes/purple.theme';
+@import '../../themes/green.theme';
+@import '../../themes/brown.theme';
+@import '../../themes/grey.theme';
+@import '../../themes/pink.theme';
+
+@import '../../app/layouts/admin-layout/admin-layout.component';
+
+@mixin custom-components-theme($theme) {
+  @include sidebar-theme($theme);
+  /*
+  @include flip-toggle-button-theme($theme);
+  */
+}
+
+/*@mixin custom-components-theme($theme) {
+ @include robi-styles-reset-theme($theme);
+ @include robi-app-component-theme($theme);
+ @include robi-about-component-theme($theme);
+ @include robi-big-input-component-theme($theme);
+ @include robi-notifications-component-theme($theme);
+ @include robi-todos-container-component-theme($theme);
+ @include robi-stock-market-container-component-theme($theme);
+ @include robi-parent-component-theme($theme);
+ @include robi-child-component-theme($theme);
+ @include robi-examples-component-theme($theme);
+}*/
+
+.default-theme {
+  @include mat.all-component-themes($robi-theme);
+  @include custom-components-theme($robi-theme);
+  /*@include custom-components-theme($robi-theme);*/
+}
+
+.light-theme {
+  @include mat.all-component-themes($robi-light-theme);
+  @include custom-components-theme($robi-light-theme);
+  /*@include custom-components-theme($robi-light-theme);*/
+}
+
+.black-theme {
+  @include mat.all-component-themes($robi-black-theme);
+  @include custom-components-theme($robi-black-theme);
+  /*@include custom-components-theme($robi-black-theme);*/
+}
+
+.nature-theme {
+  @include mat.all-component-themes($robi-nature-theme);
+  @include custom-components-theme($robi-nature-theme);
+  /*@include custom-components-theme($robi-nature-theme);*/
+}
+
+.orange-theme {
+  @include mat.all-component-themes($robi-orange-theme);
+  @include custom-components-theme($robi-orange-theme);
+}
+
+.red-theme {
+  @include mat.all-component-themes($robi-red-theme);
+  @include custom-components-theme($robi-red-theme);
+}
+
+.purple-theme {
+  @include mat.all-component-themes($robi-purple-theme);
+  @include custom-components-theme($robi-purple-theme);
+}
+
+.green-theme {
+  @include mat.all-component-themes($robi-green-theme);
+  @include custom-components-theme($robi-green-theme);
+}
+
+.brown-theme {
+  @include mat.all-component-themes($robi-brown-theme);
+  @include custom-components-theme($robi-brown-theme);
+}
+
+.grey-theme {
+  @include mat.all-component-themes($robi-grey-theme);
+  @include custom-components-theme($robi-grey-theme);
+}
+
+.pink-theme {
+  @include mat.all-component-themes($robi-pink-theme);
+  @include custom-components-theme($robi-pink-theme);
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+.profile-photo{
+  width: 120px;
+  height: 120px;
+
+ /* width: 120px;
+  height: 120px;
+  max-width: 130px;
+  max-height: 130px;
+  border-radius: 50%;
+  overflow: hidden;
+  padding: 0;*/
+}
+.file-input{
+  display: none;
+}
+
+.main-panel .main-content {
+  /*margin-top: 20px;*/
+  padding: 30px 15px;
+  min-height: calc(100vh - 123px);
+}
+
+
+/*.nav-link{
+ background-color: black;
+}*/
+
+/*.sidebar[data-color=danger] li.active > a {
+ background-color: black;
+ box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(0, 0, 0, 0.56);
+}*/
+
+/*Action button*/
+.fab-container {
+  position: fixed;
+  bottom: 35px;
+  right: 35px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+
+  > div {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-bottom: 5px;
+
+    button {
+      margin-bottom: 17px;
+    }
+  }
+  .edit {
+    bottom: 100px;
+  }
+}
+
+.fab-toggler {
+  float: right;
+  z-index: 100;
+}
+
+.fab-edit {
+  bottom: 120px;
+}
+
+.login-container {
+  width: 40%;
+  max-width: 500px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+.spinner {
+  position:absolute;
+  top:25%;
+  left:40%;
+  margin:0 auto;
+  display: inline-block;
+}
+.pointer {
+  cursor: pointer;
+}
+
+.not-found{
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-size: 15px
+}
+.link{
+  color: #00acc1;
+  cursor: pointer;
+}
