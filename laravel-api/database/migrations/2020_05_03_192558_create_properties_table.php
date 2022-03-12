@@ -28,6 +28,12 @@ class CreatePropertiesTable extends Migration
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
 
+            // @itachi
+            $table->string('plot_area');
+            $table->string('covered_area');
+            $table->string('dm_circle_rate');
+            // @itachi
+
             $table->string('address_1')->nullable();
             $table->string('address_2')->nullable();
             $table->string('country')->nullable();

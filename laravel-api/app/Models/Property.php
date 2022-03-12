@@ -48,6 +48,11 @@ class Property extends BaseModel
         'longitude',
         'address_1',
         'address_2',
+        // @itachi
+        'plot_area',
+        'covered_area',
+        'dm_circle_rate',
+        // @itachi
         'country',
         'state',
         'city',

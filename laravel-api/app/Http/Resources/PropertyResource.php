@@ -54,6 +54,11 @@ class PropertyResource extends JsonResource
             'longitude'             => $this->longitude,
             'address_1'             => $this->address_1,
             'address_2'             => $this->address_2,
+            // @itachi
+            'plot_area'             => $this->plot_area,
+            'covered_area'          => $this->covered_area,
+            'dm_circle_rate'        => $this->dm_circle_rate,
+            // @itachi
             'country'               => $this->country,
             'state'                 => $this->state,
             'city'                  => $this->city,
