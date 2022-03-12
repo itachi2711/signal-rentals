@@ -138,6 +138,13 @@ export class AddPropertyComponent implements OnInit, OnDestroy  {
                     Validators.minLength(2)]],
                 property_type_id: ['', [Validators.required,
                     Validators.minLength(2)]],
+                // @itachi
+                plot_area: [''],
+                covered_area: ['', [Validators.required,
+                    Validators.minLength(2)]],
+                dm_circle_rate: ['', [Validators.required,
+                    Validators.minLength(2)]],
+                // @itachi
                 unitFields: this.fb.array([ this.createUnitField() ])
             });
 
@@ -171,6 +178,11 @@ export class AddPropertyComponent implements OnInit, OnDestroy  {
             location: property?.location,
             property_code: property?.property_code,
             property_type_id: property?.property_type_id,
+            // @itachi
+            plot_area: property?.plot_area,
+            covered_area: property?.covered_area,
+            dm_circle_rate: property?.dm_circle_rate,
+            // @itachi
         });
     }
 

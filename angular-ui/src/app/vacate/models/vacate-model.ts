@@ -12,6 +12,15 @@ export class VacateModel extends BaseModel {
     vacating_reason: string;
 
     tenant: any;
-    lease: {lease_number, unit_names};
-    property: {property_name, property_code, location};
+    lease: { lease_number, unit_names };
+    property: {
+        property_name, 
+        property_code, 
+        location,
+        // @itachi Declared Variables
+        plot_area,
+        covered_area,
+        dm_circle_rate,
+        // @itachi Declared Variables
+    };
 }

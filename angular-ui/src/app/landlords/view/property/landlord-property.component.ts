@@ -20,22 +20,27 @@ export class LandlordPropertyComponent implements OnInit, AfterViewInit {
         'property_name',
         'location',
         'total_units',
+        // @itachi
+        'plot_area',
+        'covered_area,',
+        'dm_circle_rate,',
+        // @itachi
     ];
 
     // Data for the list table display
     propertyDataSource: PropertyDataSource;
 
     // pagination
-    @ViewChild(MatPaginator, {static: true }) paginator: MatPaginator;
+    @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
     // Pagination
     length: number;
     pageIndex = 0;
     pageSizeOptions: number[] = [5, 10, 25, 50, 100];
     meta: any;
-    @ViewChild(MatSort, {static: true}) sort: MatSort;
+    @ViewChild(MatSort, { static: true }) sort: MatSort;
     // Search field
-    @ViewChild('search', {static: true}) search: ElementRef;
+    @ViewChild('search', { static: true }) search: ElementRef;
 
     loader = false;
 
@@ -43,7 +48,7 @@ export class LandlordPropertyComponent implements OnInit, AfterViewInit {
     landlordID: string;
 
     constructor(private notification: NotificationService, private propertyService: PropertyService,
-                private landlordService: LandlordService) {}
+        private landlordService: LandlordService) { }
 
     ngOnInit() {
         this.landlordService.selectedLandlordChanges$.subscribe(data => {
@@ -79,7 +84,7 @@ export class LandlordPropertyComponent implements OnInit, AfterViewInit {
      */
     ngAfterViewInit() {
         this.paginator.page.pipe(
-            tap(() => this.loadData() )
+            tap(() => this.loadData())
         ).subscribe();
 
         // reset the paginator after sorting

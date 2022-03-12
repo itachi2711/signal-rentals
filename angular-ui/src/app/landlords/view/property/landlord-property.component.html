@@ -21,6 +21,23 @@
             <mat-cell *matCellDef="let row"> {{row.location}} </mat-cell>
         </ng-container>
 
+        <!-- @itachi -->
+        <ng-container matColumnDef="plot_area">
+            <mat-header-cell *matHeaderCellDef> Plot Area </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.property.plot_area}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="covered_area">
+            <mat-header-cell *matHeaderCellDef> Covered Area </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.property.covered_area}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="dm_circle_rate">
+            <mat-header-cell *matHeaderCellDef> DM Circle Rate </mat-header-cell>
+            <mat-cell *matCellDef="let row"> {{row.property.dm_circle_rate}} </mat-cell>
+        </ng-container>
+        <!-- @itachi -->
+
         <ng-container matColumnDef="total_units">
             <mat-header-cell *matHeaderCellDef mat-sort-header> Units </mat-header-cell>
             <mat-cell *matCellDef="let row"> {{row.total_units}} </mat-cell>

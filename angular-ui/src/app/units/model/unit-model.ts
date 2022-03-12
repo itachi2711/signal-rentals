@@ -9,6 +9,11 @@ export class UnitModel extends BaseModel {
     property_photo: string;
     property_status: string;
     property_type_id: string;
+    // @itachi Declared Variables
+    plot_area: any;
+    covered_area: any;
+    dm_circle_rate: any;
+    // @itachi Declared Variables
     location: string;
     latitude: string;
     longitude: string;

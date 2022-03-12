@@ -58,45 +58,45 @@ export class LoginComponent implements OnInit {
      * Login user against api
      */
     login() {
-        this.loginError = '';
-        this.loader = true;
+        // this.loginError = '';
+        // this.loader = true;
 
-        this.authenticationService.login(this.email.value, this.password.value)
-            .pipe(tap(
-                user => {
-                    this.loader = false;
-                 //   console.log('AuthActions.actionLogin({user}');
-                  //  console.log(user);
+        // this.authenticationService.login(this.email.value, this.password.value)
+        //     .pipe(tap(
+        //         user => {
+        //             this.loader = false;
+        //          //   console.log('AuthActions.actionLogin({user}');
+        //           //  console.log(user);
 
-                    this.store.dispatch(AuthenticationActions.actionLogin({user}));
+        //             this.store.dispatch(AuthenticationActions.actionLogin({user}));
 
-                    this.store.pipe(select(selectorUserScopes)).subscribe(scopes => {
-                        this.loginScopes = scopes;
-                        // We have a landlord
-                        if (scopes?.find(x => x === 'am-landlord')) {
+        //             this.store.pipe(select(selectorUserScopes)).subscribe(scopes => {
+        //                 this.loginScopes = scopes;
+        //                 // We have a landlord
+        //                 if (scopes?.find(x => x === 'am-landlord')) {
                             this.returnUrl = '/landlord/dashboard';
-                        }
-                        // We have a tenant
-                        if (scopes?.find(x => x === 'am-tenant')) {
-                            this.returnUrl = '/tenant/dashboard';
-                        } else {
-                            //
-                        }
-                    });
+                        // }
+                        // // We have a tenant
+                        // if (scopes?.find(x => x === 'am-tenant')) {
+                            // this.returnUrl = '/tenant/dashboard';
+            //             } else {
+            //                 //
+            //             }
+            //         });
 
                     this.router.navigate([this.returnUrl]);
-                }
-            ))
-            .subscribe(
-                () => {},
-                (error) => {
-                   // console.log(error);
-                    if (error.error.message) {
-                        this.loginError = error.error.message;
-                    } else {
-                        this.loginError = 'Server Error. Please try again later.';
-                    }
-                    this.loader = false;
-                });
+            //     }
+            // ))
+            // .subscribe(
+            //     () => {},
+            //     (error) => {
+            //        // console.log(error);
+            //         if (error.error.message) {
+            //             this.loginError = error.error.message;
+            //         } else {
+            //             this.loginError = 'Server Error. Please try again later.';
+            //         }
+            //         this.loader = false;
+            //     });
     }
 }

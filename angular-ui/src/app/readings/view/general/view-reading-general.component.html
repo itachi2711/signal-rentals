@@ -23,6 +23,28 @@
                             <input matInput disabled value="{{(readingData$|async)?.property?.location}}">
                         </mat-form-field>
                     </div>
+
+                    <!-- @itachi -->
+                    <div class="col-sm-4">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Plot Area</mat-label>
+                            <input matInput disabled value="{{(readingData$|async)?.property?.plot_area}}
+                             ({{(readingData$|async)?.unit?.unit_name}})">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-4">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>Covered Area</mat-label>
+                            <input matInput disabled value="{{(readingData$|async)?.property?.covered_area}}">
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-4">
+                        <mat-form-field class="full-width" color="primary" appearance="legacy">
+                            <mat-label>DM Circle Rate</mat-label>
+                            <input matInput disabled value="{{(readingData$|async)?.property?.dm_circle_rate}}">
+                        </mat-form-field>
+                    </div>
+                    <!-- @itachi -->
                 </div>
 
                 <div class="row">

@@ -20,24 +20,27 @@
                         <div class="row search-form-section">
                             <ng-container *robiPermission="['create-property']">
                                 <div class="col-5" *ngIf="isAdmin$ | async">
-                                    <button [disabled]="(dataSource?.loading$ | async)" mat-button matPrefix mat-stroked-button aria-label="add new"
-                                            [routerLink]="['create']">
+                                    <button [disabled]="(dataSource?.loading$ | async)" mat-button matPrefix
+                                        mat-stroked-button aria-label="add new" [routerLink]="['create']">
                                         <mat-icon>add</mat-icon>Add Property
                                     </button>
                                 </div>
                             </ng-container>
                             <div class="col-7" [hidden]="!(isAdmin$ | async)">
                                 <mat-form-field class="search-form-field">
-                                    <input matInput #search placeholder="{{ 'robi.filter' | translate }}" autocomplete="off" [disabled]="meta?.total===0">
-                                    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="search.value" (click)="clearSearch()">
-                                        <mat-icon>close</mat-icon></button>
+                                    <input matInput #search placeholder="{{ 'robi.filter' | translate }}"
+                                        autocomplete="off" [disabled]="meta?.total===0">
+                                    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="search.value"
+                                        (click)="clearSearch()">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
                                 </mat-form-field>
                             </div>
                         </div>
 
                         <div class="table-responsive">
-                            <mat-table #table [dataSource]="dataSource" matSort matSortActive="property_code" matSortDirection="desc"
-                                       matSortDisableClear>
+                            <mat-table #table [dataSource]="dataSource" matSort matSortActive="property_code"
+                                matSortDirection="desc" matSortDisableClear>
 
                                 <ng-container matColumnDef="property_code">
                                     <mat-header-cell *matHeaderCellDef mat-sort-header> Property Code </mat-header-cell>
@@ -62,6 +65,23 @@
                                     <mat-cell *matCellDef="let row"> {{row.location}} </mat-cell>
                                 </ng-container>
 
+                                <!-- @itachi -->
+                                <ng-container matColumnDef="plot_area">
+                                    <mat-header-cell *matHeaderCellDef> Plot Area </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.property.plot_area}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="covered_area">
+                                    <mat-header-cell *matHeaderCellDef> Covered Area </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.property.covered_area}} </mat-cell>
+                                </ng-container>
+
+                                <ng-container matColumnDef="dm_circle_rate">
+                                    <mat-header-cell *matHeaderCellDef> DM Circle Rate </mat-header-cell>
+                                    <mat-cell *matCellDef="let row"> {{row.property.dm_circle_rate}} </mat-cell>
+                                </ng-container>
+                                <!-- @itachi -->
+
                                 <ng-container matColumnDef="total_units">
                                     <mat-header-cell *matHeaderCellDef> Units </mat-header-cell>
                                     <mat-cell *matCellDef="let row"> {{row.total_units}} </mat-cell>
@@ -70,17 +90,19 @@
                                 <ng-container matColumnDef="actions">
                                     <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
                                     <mat-cell *matCellDef="let row" class="button-row">
-                                        <button mat-raised-button type="button" matTooltip="View Property" [matTooltipPosition]="'above'"
-                                                class="btn btn-link btn-sm btn-just-icon" routerLink="{{row.id}}" (click)="onSelected(row)">
+                                        <button mat-raised-button type="button" matTooltip="View Property"
+                                            [matTooltipPosition]="'above'" class="btn btn-link btn-sm btn-just-icon"
+                                            routerLink="{{row.id}}" (click)="onSelected(row)">
                                             <i class="material-icons">expand_more</i>
                                         </button>
 
                                         <ng-container *robiPermission="['edit-property', 'delete-property']">
-                                        <button *ngIf="isAdmin$ | async" mat-raised-button type="button" matTooltip="Edit Property" [matTooltipPosition]="'above'"
-                                                class="btn btn-link btn-sm btn-just-icon"
-                                                routerLink="{{row.id}}/edit" (click)="onSelected(row)">
-                                            <i class="material-icons">edit</i>
-                                        </button>
+                                            <button *ngIf="isAdmin$ | async" mat-raised-button type="button"
+                                                matTooltip="Edit Property" [matTooltipPosition]="'above'"
+                                                class="btn btn-link btn-sm btn-just-icon" routerLink="{{row.id}}/edit"
+                                                (click)="onSelected(row)">
+                                                <i class="material-icons">edit</i>
+                                            </button>
                                         </ng-container>
                                     </mat-cell>
                                 </ng-container>
@@ -91,19 +113,13 @@
                             <span *ngIf="(dataSource.meta$ | async)['total'] ===0">No Data</span>
 
                             <div class="d-flex justify-content-center spinner-container"
-                                 *ngIf="(dataSource?.loading$ | async) || loader">
-                                <mat-progress-bar
-                                        color="green"
-                                        mode="query"
-                                        value=50
-                                        bufferValue=75>
+                                *ngIf="(dataSource?.loading$ | async) || loader">
+                                <mat-progress-bar color="green" mode="query" value=50 bufferValue=75>
                                 </mat-progress-bar>
                             </div>
 
-                            <mat-paginator #pagination
-                                           [length]="meta?.total"
-                                           [pageIndex]="pageIndex"
-                                           [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
+                            <mat-paginator #pagination [length]="meta?.total" [pageIndex]="pageIndex"
+                                [pageSizeOptions]="pageSizeOptions" showFirstLastButtons>
                             </mat-paginator>
 
                         </div>

@@ -27,6 +27,11 @@ export class PropertyComponent implements OnInit, AfterViewInit {
         'property_code',
         'property_name',
         'location',
+        // @itachi
+        'plot_area',
+        'covered_area,',
+        'dm_circle_rate,',
+        // @itachi
         'total_units',
         'actions'
     ];
